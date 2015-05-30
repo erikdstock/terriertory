@@ -5,7 +5,6 @@ $(document).ready( function(){
 
   var dogsView = new DogsView({collection: user.dogs});
   dogsView.render();
-  debugger;
 
   user.dogs.fetch({
     reset: true,
