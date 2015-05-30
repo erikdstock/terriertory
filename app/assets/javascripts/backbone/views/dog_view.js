@@ -12,28 +12,11 @@ var DogView = Backbone.View.extend({
 
   toggleDetails: function(e){
     e.preventDefault();
+    this.$el.find(".button").toggleClass("info");
     this.$el.find(".dog-details").toggle();
-    // $(e.currentTarget).toggle(
-      // function(){
-      //   console.log("Details On!!");
-      //   self.detailsOn();
-      // },
-      // function() {
-      //   console.log("Details Off!!");
-      //   self.detailsOff();
-      // }
-    // );
   },
 
   render: function() {
     this.$el.html(this.template(this.model.attributes));
-  },
-
-  detailsOn: function() {
-    this.$el.append(this.detailTemplate(this.model.attributes));
-  },
-
-  detailsOff: function() {
-    this.$el.remove(".dog-details");
   }
 });
