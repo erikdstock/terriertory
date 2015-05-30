@@ -1,4 +1,4 @@
-var user = Backbone.Model.extend({
+var User = Backbone.Model.extend({
   defaults: {
 
   },
@@ -6,8 +6,8 @@ var user = Backbone.Model.extend({
   //this is an experiment in generating a users dogs... work in progress
 
   initialize: function(){
-    var dogs = new Dogs();
-    this.dogs = dogs.fetch({user_id: this.id});
+    this.dogs = new Dogs();
+    this.dogs.url = 'users/' + this.id + '/dogs';
   }
 
   //or just pass the param?

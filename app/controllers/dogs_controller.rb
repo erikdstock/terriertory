@@ -1,5 +1,11 @@
 class DogsController < ApplicationController
 
+  #Index route for a backbone dog fetch
+  def index
+    dogs = Dog.where(owner_id: params[:user_id])
+    render json: dogs
+  end
+
   def new
     #may want to change params[:user_id] to session[:user_id] for security
     @user = User.find_by(id: session[:user_id])
