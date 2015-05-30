@@ -3,9 +3,10 @@
 $(document).ready( function(){
   var user = new User({id: 1});
 
-  var dogsView = new DogsView({collection: user.dogs})
+  var dogsView = new DogsView({collection: user.dogs});
 
   user.dogs.fetch({
+    reset: true,
     success: function(){
       console.log("Found dogs!");
     }

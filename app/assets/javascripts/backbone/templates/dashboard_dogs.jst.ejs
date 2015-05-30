@@ -1,12 +1,10 @@
 <div class = "row">
   <div class = "small-centered columns">
     <h3>My Dogs</h3>
-      <% current_user.dogs.each do |dog| %>
-        <%= render partial: "dogs/dog_stats", locals: {dog: dog} %>
-      <% end %>
   </div>
 </div>
-<% else %>
-<div data-alert class='alert-box warning radius' >
+
+<!-- <div data-alert class='alert-box warning radius' >
     You haven't added any dogs yet!<a href="#" class="close">&times;</a>
 </div>
+ -->

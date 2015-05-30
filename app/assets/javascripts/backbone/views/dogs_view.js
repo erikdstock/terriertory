@@ -14,16 +14,18 @@ var DogsView = Backbone.View.extend({
     return this;
   },
 
-  addOne: function() {
-    var view = new DogsView({model: dog});
+  addOne: function(dog) {
+    var view = new DogView({model: dog});
+    debugger;
     view.render();
 
-    this.$el.find(".dogs").append(view.el);
+    this.$el.find("#dogs").append(view.el);
 
     return this;
   },
 
   addAll: function() {
+    debugger;
     this.collection.each(function(dog){
       this.addOne(dog);
     }, this);
