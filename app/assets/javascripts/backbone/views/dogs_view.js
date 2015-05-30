@@ -1,5 +1,6 @@
 var DogsView = Backbone.View.extend({
   template: JST["backbone/templates/dashboard_dogs"],
+  noDogsTemplate: JST["backbone/templates/no_dogs"],
   el: "#dogs",
 
   initialize: function(){
@@ -8,8 +9,10 @@ var DogsView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.addAll);
   },
 
+  //the if branch doesn't work right now- view only gets rendered once and so we lose our 'dogs' title among other things.
   render: function() {
-    this.$el.html(this.template());
+
+      this.$el.html(this.template());
 
     return this;
   },
@@ -17,17 +20,19 @@ var DogsView = Backbone.View.extend({
   addOne: function(dog) {
     var view = new DogView({model: dog});
     view.render();
-
-    this.$el.find("#dogs").append(view.el);
+    this.$el.append(view.el);
 
     return this;
   },
 
   addAll: function() {
-    this.collection.each(function(dog){
-      this.addOne(dog);
-    }, this);
-
+    if(this.collection.length === 0){
+      this.$el.append(this.noDogsTemplate);
+    } else {
+      this.collection.each(function(dog){
+        this.addOne(dog);
+      }, this);
+    }
     return this;
   }
 

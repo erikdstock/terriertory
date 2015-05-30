@@ -4,6 +4,8 @@ $(document).ready( function(){
   var user = new User({id: 1});
 
   var dogsView = new DogsView({collection: user.dogs});
+  dogsView.render();
+  debugger;
 
   user.dogs.fetch({
     reset: true,
