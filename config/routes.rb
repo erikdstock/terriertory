@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :walks, only: [:create, :index]
   end
 
-  resource :local_areas, only: [:create]
+  resource :local_areas, only: [:create, :index]
 
   # resource :dashboard, only: [:show]
 
