@@ -39,7 +39,9 @@ class UsersController < ApplicationController
       else
         @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
       end
-      render json: @local_area.neighbors
+      neighbors_json = @local_area.neighbors.map do |neighbor|
+        neighbor.as_json.merge(:distanceTraveled => neighbor.distance_traveled, :distanceScore => neighbor.distance_score, :area => neighbor.area)
+      end
     end
 
     ##hacky- use location later
