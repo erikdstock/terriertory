@@ -2,7 +2,7 @@ class DogsController < ApplicationController
 
   #Index route for a backbone dog fetch
   def index
-    dogs = Dog.where(owner_id: params[:user_id])
+    dogs = Dog.where(owner_id: current_user.id)
 
     dogs_json = dogs.map do |dog|
       dog.as_json.merge(:distanceTraveled => dog.distance_traveled, :distanceScore => dog.distance_score, :area => dog.area)
