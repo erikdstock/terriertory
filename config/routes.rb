@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   # get '/dashboard' => 'users#dashboard', as: 'dashboard'
 
+  get 'users/:user_id/neighbors' => 'users#neighbors'
+
   get '/dashboard' => 'users#dashboard'
 
   get '/login' => 'sessions#new'

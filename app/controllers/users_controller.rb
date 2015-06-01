@@ -32,7 +32,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def neighbors
+    if request.xhr?
+      if mark = current_user.marks.last
+        @local_area = LocalArea.new(mark.latitude, mark.longitude, current_user.id)
+      else
+        @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
+      end
+      render json: @local_area.neighbors
+    end
 
+    ##hacky- use location later
+
+    render
+  end
 
   def territory
     @user = current_user
