@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
     ##hacky- use location later
 
-    render
+    render json: neighbors_json
   end
 
   def territory

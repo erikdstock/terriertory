@@ -27,14 +27,7 @@
 </div>
 
 <div id = "neighbors">
-  <div class = "row">
-    <div class = "small-centered columns">
-      <h3>Neighborhood Leaders</h3>
-        <% @local_area.neighbors.each do |neighbor| %>
-          <%= render partial: "user_stats", locals: {user: neighbor} %>
-        <% end %>
-    </div>
-  </div>
+
 </div>
 
 <footer>

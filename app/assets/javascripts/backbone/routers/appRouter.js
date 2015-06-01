@@ -25,7 +25,15 @@ var AppRouter = Backbone.Router.extend({
       }
     });
 
-    neighbors = new Neighbors();
+    var neighborsView = new NeighborsView({collection: user.neighbors});
+    neighborsView.render();
+
+    user.neighbors.fetch({
+      reset: true,
+      success: function(){
+        console.log("Found neighbors!");
+      }
+    });
 
 	},
 
