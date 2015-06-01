@@ -8,6 +8,8 @@ var User = Backbone.Model.extend({
   initialize: function(){
     this.dogs = new Dogs();
     this.dogs.url = 'users/' + this.id + '/dogs';
+    this.neighbors = new Neighbors();
+    this.neighbors.url = 'users/' + this.id + '/neighbors';
   }
 
   //or just pass the param?

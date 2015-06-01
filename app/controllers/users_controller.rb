@@ -61,6 +61,17 @@ class UsersController < ApplicationController
 
   def dashboard
     # we could just use current_user... is something dependent on this?
+    if request.xhr?
+      #user
+      #user's dogs
+      #user's walks
+      #walk's marks
+      #user's neighbors
+        #neighbor's dogs
+        #neighbor's walks
+        #walk's marks
+
+    end
     unless @user = User.find_by(id: session[:user_id])
       flash[:message] = "Sorry, it looks like you aren't logged in."
       redirect_to "/"
