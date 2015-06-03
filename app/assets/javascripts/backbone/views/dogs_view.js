@@ -4,8 +4,6 @@ var DogsView = Backbone.View.extend({
   el: "#dogs",
 
   initialize: function(){
-    console.log("Creating dogs view!");
-    console.log(this.collection);
     this.listenTo(this.collection, 'reset', this.addAll);
   },
 

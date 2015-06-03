@@ -1,21 +1,33 @@
 var Dashboard = Backbone.Model.extend({
-  url: "dashboard",
+  url: "/dashboard",
 
 
   initialize: function(){
-    this.dogs = new Dogs();
-
-
-    // delete 
-    // this.dogs.url = 'users/' + this.id + '/dogs';
-    this.neighbors = new Neighbors();
-    // this.neighbors.url = 'users/' + this.id + '/neighbors';
   },
 
-  // parse: function(response){
-  //   // this.dogs: new Dogs({collection: response.dogs})
-  // }
 
-  //or just pass the param?
-  // dogs = new Dogs({user_id: this.id})
+  parse: function(response){
+    debugger;
+    this.set(response);
+    this.set("dogs", new Dogs({collection: response.dogs}));
+    this.set("neighbors", new Neighbors({collection: response.neighbors}));
+    return response;
+  },
+
+
+
+
+  // not needed. was an idea. leaving it here for posterity
+  parseDogs: function(){
+    var json = this.dogs;
+    this.dogs = new Dogs({collection: dogsJson});
+    return this;
+  },
+
+  parseNeighbors: function(){
+    var json = this.neighbors;
+    this.neighbors = new Neighbors({collection: json});
+    return this;
+  }
+
 });

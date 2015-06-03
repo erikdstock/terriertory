@@ -5,28 +5,28 @@ var AppRouter = Backbone.Router.extend({
 
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
-		"dashboard": "dashboard",
+		"backbone": "dashboard",
 		//this might not be the right way to start a new cruddy walk
 		"walks/:id": "showWalk"
 	},
 
 	dashboard: function(){
-		console.log('rendering dashboard');
+		var response
     var dashboard = new Dashboard();
-    dashboard.fetch();
-		console.log("dashboard username:" + dashboard["username"])
-		
+    dashboard.fetch({
+    	reset: true,
+    	// success: function (collection, response, options) {
+    		// debugger;
+    	// }
+    });
+    debugger;
+
+		console.log("dashboard email:" + dashboard.get("email"));
 		
 		var dogsView = new DogsView({collection: dashboard.dogs});
 		dogsView.render();
 
-		// dashboard.dogs.fetch({
-  //     reset: true,
-  //     success: function(response){
-  //       console.log("Found dogs!");
-  //       console.log(response);
-  //     }
-  //   });
+		
 
     var neighborsView = new NeighborsView({collection: dashboard.neighbors});
     neighborsView.render();
