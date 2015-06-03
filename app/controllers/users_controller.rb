@@ -77,11 +77,11 @@ class UsersController < ApplicationController
   def dashboard
     # if backbone ajax request, build a nested dashboard json object
     if request.xhr?
-      
+      dashboard_json = dashboard_json_constructor
       render json: dashboard_json
     end
-
-    render 'dashboard'
+    @user = current_user
+    # render 'dashboard'
 
   end
 

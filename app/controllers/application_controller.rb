@@ -4,8 +4,24 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
 
+  def dashboard_json_constructor
+  	dashboard_json = current_user.as_json
+    dashboard_json[:dogs] = current_user.dogs.map do |dog|
+      dog.as_json.merge(
+        distanceTraveled: dog.distance_traveled, 
+        distanceScore: dog.distance_score, 
+        area: dog.area)
+    end
+    puts dashboard_json
+    return dashboard_json
+      
+  end
+
+
   def current_user
     @_current_user ||= User.find_by(id: session[:user_id])
   end
+
+
 
 end
