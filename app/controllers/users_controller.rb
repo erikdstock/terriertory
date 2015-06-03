@@ -75,28 +75,10 @@ class UsersController < ApplicationController
 
 
   def dashboard
-    # we could just use current_user... is something dependent on this?
+    # if backbone ajax request, build a nested dashboard json object
     if request.xhr?
-      #user
-      #user's dogs
-      #user's walks
-      #walk's marks
-      #user's neighbors
-        #neighbor's dogs
-        #neighbor's walks
-        #walk's marks
-
-    end
-    unless @user = User.find_by(id: session[:user_id])
-      flash[:message] = "Sorry, it looks like you aren't logged in."
-      redirect_to "/"
-    end
-
-    ##hacky- use location later
-    if mark = @user.marks.last
-      @local_area = LocalArea.new(mark.latitude, mark.longitude, current_user.id)
-    else
-      @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
+      
+      render json: dashboard_json
     end
 
     render 'dashboard'

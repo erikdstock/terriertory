@@ -20,8 +20,9 @@ var AppRouter = Backbone.Router.extend({
 
 		user.dogs.fetch({
       reset: true,
-      success: function(){
+      success: function(response){
         console.log("Found dogs!");
+        console.log(response);
       }
     });
 
