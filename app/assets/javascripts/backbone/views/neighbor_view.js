@@ -1,8 +1,8 @@
-var DogView = Backbone.View.extend({
-  template: JST["backbone/templates/dog_button"],
+var NeighborView = Backbone.View.extend({
+  template: JST["backbone/templates/neighbor_button"],
 
   initialize: function() {
-    console.log("Creating dog view");
+    console.log("Creating neighbor view");
   },
 
   events: {
@@ -12,7 +12,7 @@ var DogView = Backbone.View.extend({
   toggleDetails: function(e){
     e.preventDefault();
     this.$el.find(".button").toggleClass("info");
-    this.$el.find(".dog-details").toggle();
+    this.$el.find(".neighbor-details").toggle();
   },
 
   render: function() {
