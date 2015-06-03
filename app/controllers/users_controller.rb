@@ -79,9 +79,11 @@ class UsersController < ApplicationController
     if request.xhr?
       dashboard_json = dashboard_json_constructor
       render json: dashboard_json
+    else
+      # else render dashboard html skeleton
+      @user = current_user
+      render 'dashboard'
     end
-    @user = current_user
-    # render 'dashboard'
 
   end
 

@@ -10,31 +10,33 @@ var AppRouter = Backbone.Router.extend({
 		"walks/:id": "showWalk"
 	},
 
-	//how to actually find rails' current_user for dashboard?
 	dashboard: function(){
 		console.log('rendering dashboard');
-    var user = new User({id: 1});
-
-		var dogsView = new DogsView({collection: user.dogs});
+    var dashboard = new Dashboard();
+    dashboard.fetch();
+		console.log("dashboard username:" + dashboard["username"])
+		
+		
+		var dogsView = new DogsView({collection: dashboard.dogs});
 		dogsView.render();
 
-		user.dogs.fetch({
-      reset: true,
-      success: function(response){
-        console.log("Found dogs!");
-        console.log(response);
-      }
-    });
+		// dashboard.dogs.fetch({
+  //     reset: true,
+  //     success: function(response){
+  //       console.log("Found dogs!");
+  //       console.log(response);
+  //     }
+  //   });
 
-    var neighborsView = new NeighborsView({collection: user.neighbors});
+    var neighborsView = new NeighborsView({collection: dashboard.neighbors});
     neighborsView.render();
 
-    user.neighbors.fetch({
-      reset: true,
-      success: function(){
-        console.log("Found neighbors!");
-      }
-    });
+    // dashboard.neighbors.fetch({
+    //   reset: true,
+    //   success: function(){
+    //     console.log("Found neighbors!");
+    //   }
+    // });
 
 	},
 
