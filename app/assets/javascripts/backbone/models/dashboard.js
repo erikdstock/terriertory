@@ -3,31 +3,22 @@ var Dashboard = Backbone.Model.extend({
 
 
   initialize: function(){
+    // console.log('creating dashboard')
+    this.set('dogs', new Dogs());
+    this.set ('neighbors', new Neighbors());
   },
 
 
-  parse: function(response){
-    debugger;
-    this.set(response);
-    this.set("dogs", new Dogs({collection: response.dogs}));
-    this.set("neighbors", new Neighbors({collection: response.neighbors}));
-    return response;
-  },
+  parse: function(data){
+    //swap nested JSON collection data with backbone collections
+    var dogsCollection = new Dogs(data.dogs);
+    data.dogs = dogsCollection;
+
+    var neighborsCollection = new Neighbors(data.neighbors);
+    data.neighbors = neighborsCollection;
 
 
-
-
-  // not needed. was an idea. leaving it here for posterity
-  parseDogs: function(){
-    var json = this.dogs;
-    this.dogs = new Dogs({collection: dogsJson});
-    return this;
-  },
-
-  parseNeighbors: function(){
-    var json = this.neighbors;
-    this.neighbors = new Neighbors({collection: json});
-    return this;
+    return data;
   }
 
 });

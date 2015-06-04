@@ -1,6 +1,5 @@
 var AppRouter = Backbone.Router.extend({
 	initialize: function(){
-		console.log('setting up router');
 	},
 
 	routes: {
@@ -11,32 +10,25 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	dashboard: function(){
-		var response
-    var dashboard = new Dashboard();
+    var dashboard = new Dashboard();		
+		var dogsView = new DogsView({collection: new Dogs()});
+    var neighborsView = new NeighborsView({collection: new Neighbors()});
+		dogsView.render();
+  	neighborsView.render();
+
+    //by moving the view setting into dashboard's success function these should be unnecessary; they were getting clobbered by fetch's parse and set anyways & so could not hear events anyways.
+    // dogsView.listenTo(dashboard, 'reset', dogsView.addAll());
+    // neighborsView.listenTo(dashboard, 'reset', neighborsView.addAll());
+
     dashboard.fetch({
     	reset: true,
-    	// success: function (collection, response, options) {
-    		// debugger;
-    	// }
+    	success: function (dashboard, response, options) {
+
+    		console.log("dashboard email: " + dashboard.get("email"));
+    		dogsView.collection.reset(dashboard.get('dogs'));
+    		neighborsView.collection.reset(dashboard.get('neighbors'));
+    	}
     });
-    debugger;
-
-		console.log("dashboard email:" + dashboard.get("email"));
-		
-		var dogsView = new DogsView({collection: dashboard.dogs});
-		dogsView.render();
-
-		
-
-    var neighborsView = new NeighborsView({collection: dashboard.neighbors});
-    neighborsView.render();
-
-    // dashboard.neighbors.fetch({
-    //   reset: true,
-    //   success: function(){
-    //     console.log("Found neighbors!");
-    //   }
-    // });
 
 	},
 
