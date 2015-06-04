@@ -6,7 +6,6 @@ var Dashboard = Backbone.Model.extend({
     // console.log('creating dashboard')
     this.set('dogs', new Dogs());
     this.set ('neighbors', new Neighbors());
-    this.listenTo(this, 'reset', this.parseNestedModels)
   },
 
 
@@ -21,7 +20,7 @@ var Dashboard = Backbone.Model.extend({
     // data.neighbors = neighborsCollection;
 
     return data;
-  },
+  }
 
 
 
