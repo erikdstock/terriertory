@@ -16,21 +16,10 @@ var AppRouter = Backbone.Router.extend({
     var neighborsView = new NeighborsView({collection: new Neighbors()});
 		dogsView.render();
   	neighborsView.render();
-
     
     dashboard.fetch({
-    	//this reset may not be necessary - dashboard doesn't have a view watching it... yet.
-    	reset: true,
     	success: function (dashboard, response, options) {
-    		console.log("dashboard email: " + dashboard.get("email"));
-    		
-    	// Resetting views' collections renders model views
-    		dogsView.collection.reset(dashboard.get('dogs'));
-    	
-    	// Neighbors JSON not yet being rendered 
-    		// neighborsView.collection.reset(dashboard.get('neighbors'));
-
-    	// Maybe we should render a map too.
+    		dogsView.collection.reset(response.dogs);
     	}
     });
 
