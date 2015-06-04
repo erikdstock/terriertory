@@ -16,17 +16,17 @@ var AppRouter = Backbone.Router.extend({
 		dogsView.render();
   	neighborsView.render();
 
-    //by moving the view setting into dashboard's success function these should be unnecessary; they were getting clobbered by fetch's parse and set anyways & so could not hear events anyways.
-    // dogsView.listenTo(dashboard, 'reset', dogsView.addAll());
-    // neighborsView.listenTo(dashboard, 'reset', neighborsView.addAll());
-
+    
     dashboard.fetch({
+    	//this reset may not be necessary - dashboard doesn't have a view watching it... yet.
     	reset: true,
     	success: function (dashboard, response, options) {
-
     		console.log("dashboard email: " + dashboard.get("email"));
+    		
+    		// Resetting views' collections renders model views
     		dogsView.collection.reset(dashboard.get('dogs'));
-    		neighborsView.collection.reset(dashboard.get('neighbors'));
+    		// Neighbors JSON not yet being rendered 
+    		// neighborsView.collection.reset(dashboard.get('neighbors'));
     	}
     });
 
