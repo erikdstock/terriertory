@@ -5,11 +5,12 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-		//this might not be the right way to start a new cruddy walk
+		//example second route
 		"walks/:id": "showWalk"
 	},
 
 	dashboard: function(){
+		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
     var dashboard = new Dashboard();		
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
@@ -23,10 +24,13 @@ var AppRouter = Backbone.Router.extend({
     	success: function (dashboard, response, options) {
     		console.log("dashboard email: " + dashboard.get("email"));
     		
-    		// Resetting views' collections renders model views
+    	// Resetting views' collections renders model views
     		dogsView.collection.reset(dashboard.get('dogs'));
-    		// Neighbors JSON not yet being rendered 
+    	
+    	// Neighbors JSON not yet being rendered 
     		// neighborsView.collection.reset(dashboard.get('neighbors'));
+
+    	// Maybe we should render a map too.
     	}
     });
 

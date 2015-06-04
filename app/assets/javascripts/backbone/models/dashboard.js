@@ -11,6 +11,8 @@ var Dashboard = Backbone.Model.extend({
 
 
   parse: function(data){
+
+    //// this turned out not to be necessary. still looks cool. Backbone.Model.parse by default takes the response from a fetch and passes it to build the model's object. parse can tweak that data to prepare it for processing- it's intended for unideal apis. anyhow, we didn't need it. 
     //swap nested JSON collection data with backbone collections
     // var dogsCollection = new Dogs(data.dogs);
     // data.dogs = dogsCollection;
@@ -21,12 +23,6 @@ var Dashboard = Backbone.Model.extend({
     return data;
   },
 
-  // parseNestedModels: function(){
-  //   debugger;
-  //   this.set({
-  //     dogs: new Dogs({collection: this.dogs}),
-  //     neighbors: new Neighbors({collection: this.neighbors})
-  //   })
-  // }
+
 
 });
