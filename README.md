@@ -46,3 +46,4 @@ This app uses a Postgresql database with Rails as its back end. It also integrat
 - 8:15 Hangouts voice call standup M-F: 2 min each person + short discussion
 - Josh to run the calls
 - Trello, Slack preferred
+- 6/3 we decided to allow more solo work because of varied work schedules, morning meeting and trello use stand
