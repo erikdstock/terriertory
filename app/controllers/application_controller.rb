@@ -16,9 +16,9 @@ class ApplicationController < ActionController::Base
     end
 
     # insert neighbors, including their scores, dogs, and walks/marks of both :/
-    dashboard_json[:neighbors] = current_user.neighbors.map do |user|
+    dashboard_json[:neighbors] = current_user.neighbors
 
-    end
+    
     puts dashboard_json
     return dashboard_json
       
