@@ -1,6 +1,6 @@
 class LocalArea
   attr_reader :marks, :neighbors, :dogs
-
+  public
   def initialize(lat, lon, current_user_id)
     point = "'POINT " + "(" + lat.to_s + " " + lon.to_s + ")" + "'"
 
@@ -22,6 +22,23 @@ class LocalArea
 
     subtract_current_user(current_user_id)
 
+  end
+  
+
+  # return "POINT (coords)" of marker based on all marks
+  def self.centroid(marker)
+    
+    coords = marker.marks.map {|mark| mark.coords.to_s.sub("POINT (", '').sub(')', '')}
+    coords = coords.join(", ")
+
+
+    sql = "SELECT ST_AsText(ST_Centroid('MULTIPOINT ( " + coords +" )'));"
+    puts sql
+
+
+    pg_centroid = ActiveRecord::Base.connection.execute(sql)
+
+    return pg_centroid.values[0][0]
   end
 
 
