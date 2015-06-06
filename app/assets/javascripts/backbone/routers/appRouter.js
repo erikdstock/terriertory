@@ -11,13 +11,12 @@ var AppRouter = Backbone.Router.extend({
 
 	dashboard: function(){
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
-    var dashboard = new Dashboard();		
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
 		dogsView.render();
   	neighborsView.render();
     
-    dashboard.fetch({
+    app.dashboard.fetch({
     	success: function (dashboard, response, options) {
     		dogsView.collection.reset(response.dogs);
     		neighborsView.collection.reset(response.neighbors);
