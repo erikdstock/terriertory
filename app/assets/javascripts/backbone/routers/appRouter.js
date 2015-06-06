@@ -20,8 +20,20 @@ var AppRouter = Backbone.Router.extend({
     dashboard.fetch({
     	success: function (dashboard, response, options) {
     		dogsView.collection.reset(response.dogs);
+    		neighborsView.collection.reset(response.neighbors);
     	}
     });
+
+
+    // var neighborsView = new NeighborsView({collection: user.neighbors});
+    // neighborsView.render();
+
+    // user.neighbors.fetch({
+    //   reset: true,
+    //   success: function(){
+    //     console.log("Found neighbors!");
+    //   }
+    // });
 
 	},
 
