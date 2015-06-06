@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include StatsHelper
+  include Geoqueries
 
   has_attached_file :avatar,
   :styles => { :thumb => '60x60#', :medium => '200x200#', :large => '300x300#' }, :default_style => :large,
@@ -18,7 +19,8 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def neighbors
-    
+    neighbors = LocalArea.new(self)
+
   end
 
 
