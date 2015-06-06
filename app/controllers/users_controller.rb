@@ -32,6 +32,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+  #remove or replace when neighbors view is no longer needed (now) - Local area no longer works this way.
   def neighbors
     if request.xhr?
       if mark = current_user.marks.last
