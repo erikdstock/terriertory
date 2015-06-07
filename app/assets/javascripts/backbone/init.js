@@ -1,7 +1,7 @@
 
 //instantiate router immediately
 var appRouter = new AppRouter;
-var app = {
+var myApp = {
 	dashboard: new Dashboard
 }
 
