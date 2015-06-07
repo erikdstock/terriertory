@@ -18,6 +18,7 @@ var AppRouter = Backbone.Router.extend({
     
     app.dashboard.fetch({
     	success: function (dashboard, response, options) {
+    		console.log(response);
     		dogsView.collection.reset(response.dogs);
     		neighborsView.collection.reset(response.neighbors);
     	}

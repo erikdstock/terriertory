@@ -1,5 +1,5 @@
 class LocalArea
-  attr_reader :marks, :neighbors, :dogs
+  attr_reader :marks, :neighbors, :dogs, :walks
   public
 
   def initialize(marker)
@@ -15,6 +15,8 @@ class LocalArea
     @neighbors = @marks.map do |mark|
       mark.walk.user
     end.uniq.compact
+
+    @walks = @marks.map {|mark| mark.walk}.compact.uniq
 
     @dogs = @marks.map do |mark|
       mark.walk.dogs
@@ -52,6 +54,7 @@ class LocalArea
   def subtract_current_user(current_user_id)
     @dogs -= Dog.where(owner_id: current_user_id)
     @neighbors -= [User.find_by(id: current_user_id)]
+    @walks -= Walk.where(user_id: current_user_id)
 
   end
 
