@@ -1,8 +1,15 @@
 var Dashboard = Backbone.Model.extend({
   url: "/dashboard",
 
+
   initialize: function(){
-    this.set('dogs', new Dogs());
-    this.set ('neighbors', new Neighbors());
+    //not necessary?
+    this.dogs = new Dogs();
+    this.neighbors = new Neighbors();
   },
+
+  parse: function(response){
+
+  }
+
 });
