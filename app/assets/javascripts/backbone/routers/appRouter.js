@@ -13,38 +13,28 @@ var AppRouter = Backbone.Router.extend({
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
 		var dogsView = new DogsView({collection: new Dogs()});
         var neighborsView = new NeighborsView({collection: new Neighbors()});
-        var mapView = new MapView();
+        var mapView = new MapView({model: new Map()});
 		dogsView.render();
-  	neighborsView.render();
-    
-    myApp.dashboard.fetch({
-    	success: function (dashboard, response, options) {
-    		console.log(response);
-    		dogsView.collection.reset(response.dogs);
-    		neighborsView.collection.reset(response.neighbors);
-            mapView.set({walks: {
-                currentUser: response.walks,
-                neighbors: function(response){
-                    return response.neighbors.map(neighbor){
-                        neighbor["walks"]
-                    };
-                }
-            }});
-    	}
-    });
+      	neighborsView.render();
+        
+        myApp.dashboard.fetch({
+        	success: function (dashboard, response, options) {
+        		console.log(response);
+        		dogsView.collection.reset(response.dogs);
+        		neighborsView.collection.reset(response.neighbors);
+
+                // Parse dashboard walks into currentUser and neighbor walks
+                mapView.model.set({walks: {
+                    currentUser: response.walks,
+                    neighbors: response.neighbors.map(function(neighbor){
+                            neighbor["walks"]
+                    })
+                }});
+        	}
+        });
+    },
 
 
-    // var neighborsView = new NeighborsView({collection: user.neighbors});
-    // neighborsView.render();
-
-    // user.neighbors.fetch({
-    //   reset: true,
-    //   success: function(){
-    //     console.log("Found neighbors!");
-    //   }
-    // });
-
-	},
 
 	showWalk: function(){
 		console.log ('check out this walk!');

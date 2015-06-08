@@ -1,6 +1,7 @@
 var MapView = Backbone.View.extend({
 	template: JST['backbone/templates/map'],
-	el: "#map"
+	el: "#map",
+	model: Map,
 	
 	initialize: function(){
 
