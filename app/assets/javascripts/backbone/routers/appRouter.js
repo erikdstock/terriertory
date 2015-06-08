@@ -12,7 +12,8 @@ var AppRouter = Backbone.Router.extend({
 	dashboard: function(){
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
 		var dogsView = new DogsView({collection: new Dogs()});
-    var neighborsView = new NeighborsView({collection: new Neighbors()});
+        var neighborsView = new NeighborsView({collection: new Neighbors()});
+        var mapView = new MapView();
 		dogsView.render();
   	neighborsView.render();
     
@@ -21,6 +22,14 @@ var AppRouter = Backbone.Router.extend({
     		console.log(response);
     		dogsView.collection.reset(response.dogs);
     		neighborsView.collection.reset(response.neighbors);
+            mapView.set({walks: {
+                currentUser: response.walks,
+                neighbors: function(response){
+                    return response.neighbors.map(neighbor){
+                        neighbor["walks"]
+                    };
+                }
+            }});
     	}
     });
 

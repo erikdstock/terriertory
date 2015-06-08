@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     end
 
     dashboard_json[:neighbors].each do |neighbor|
-      neighbor[:walks] = neighborhood.walks.select { |walk| walk.user_id = neighbor[:id]}
+      neighbor[:walks] = neighborhood.walks.select { |walk| walk.user_id == neighbor[:id] }
       neighbor[:walks].map! { |walk| walk.as_json }
         
       neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor[:id] }

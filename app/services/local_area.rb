@@ -12,40 +12,21 @@ class LocalArea
       Mark.new(mark_data)
     end
 
+
+    # Why compact? #compact removes nils, should not be any here.
     @neighbors = @marks.map do |mark|
       mark.walk.user
     end.uniq.compact
 
-    @walks = @marks.map {|mark| mark.walk}.compact.uniq
+    @walks = @marks.map {|mark| mark.walk }.compact.uniq
 
     @dogs = @marks.map do |mark|
       mark.walk.dogs
     end.flatten.compact.uniq
 
     subtract_current_user(marker.id)
-
   end
 
-
-  # # return "POINT (coords)" of marker based on all marks - extracting this to different module
-  # def self.centroid(marker)
-    
-  #   coords = marker.marks.map {|mark| mark.coords.to_s.sub("POINT (", '').sub(')', '')}
-  #   coords = coords.join(", ")
-
-
-  #   sql = "SELECT ST_AsText(ST_Centroid('MULTIPOINT ( " + coords +" )'));"
-  #   puts sql
-
-
-  #   pg_centroid = ActiveRecord::Base.connection.execute(sql)
-
-  #   return pg_centroid.values[0][0]
-  # end
-
-  # def strip_point_lable
-  #   self.sub("POINT (", '').sub(')', '')
-  # end
 
 
 

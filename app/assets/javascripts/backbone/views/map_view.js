@@ -11,6 +11,16 @@ var MapView = Backbone.View.extend({
 
 	},
 
+
+	currentUserGeoJSON: function(){
+		this.geoJSON = {}
+		this.geoJSON["coordinates"] = this.walks["currentUser"]//...make geojson
+
+		console.log(geoJSON)
+	},
+
+
+
 	setMapHeight: function(){
 		//might want to extract map height function to this view
 	},
