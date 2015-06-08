@@ -4,18 +4,30 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
 
+  def convert_collection_to_json!(collection)
+    collection.map! {|item| item.as_json}
+  end
+
+##what about current user?!
+
   def dashboard_json_constructor
   	dashboard_json = current_user.as_json.merge(
-        distanceTraveled: current_user.distance_traveled, 
-        distanceScore: current_user.distance_score, 
+        distanceTraveled: current_user.distance_traveled,
+        distanceScore: current_user.distance_score,
         area: current_user.area)
     neighborhood = current_user.neighbors
+
+    dashboard_json[:walks] = current_user.walks.map do |walk|
+      walk.marks.map do |mark|
+        [mark.coords.x, mark.coords.y]
+      end
+    end
 
     # insert dogs
     dashboard_json[:dogs] = current_user.dogs.map do |dog|
       dog.as_json.merge(
-        distanceTraveled: dog.distance_traveled, 
-        distanceScore: dog.distance_score, 
+        distanceTraveled: dog.distance_traveled,
+        distanceScore: dog.distance_score,
         area: dog.area
         )
     end
@@ -29,24 +41,50 @@ class ApplicationController < ActionController::Base
         )
     end
 
+
+
+
+
     dashboard_json[:neighbors].each do |neighbor|
-      neighbor[:walks] = neighborhood.walks.select { |walk| walk.user_id == neighbor[:id] }
-      neighbor[:walks].map! { |walk| walk.as_json }
-        
-      neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor[:id] }
-      neighbor[:dogs].map! do |dog| 
+
+      neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
+      neighbor["walks"].map! do |walk|
+        neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
+      end
+
+      neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor["id"] }
+      neighbor[:dogs].map! do |dog|
           dog.as_json.merge(
-            distanceTraveled: dog.distance_traveled, 
-            distanceScore: dog.distance_score, 
+            distanceTraveled: dog.distance_traveled,
+            distanceScore: dog.distance_score,
             area: dog.area
             )
         end
-    end
+      end
 
-    
-    puts dashboard_json
+
+
+    # puts current_user.walks.all
+
+
+    # maps_json = []
+    # current_user.walks.each do |walk|
+    #   temp_walk = []
+    #   walk.marks.each do |mark|
+    #    temp_walk << [mark.coords.x, mark.coords.y]
+    #   end
+    #   maps_json << temp_walk
+    # end
+
+    # maps_json = maps_json.to_json
+
+    # puts maps_json
+
+    # puts maps_json
+
+
+    # puts maps_json
     return dashboard_json
-      
   end
 
 
