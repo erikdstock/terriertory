@@ -32,7 +32,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def neighbors
+    if request.xhr?
+      if mark = current_user.marks.last
+        @local_area = LocalArea.new(mark.latitude, mark.longitude, current_user.id)
+      else
+        @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
+      end
+      neighbors_json = @local_area.neighbors.map do |neighbor|
+        neighbor.as_json.merge(:distanceTraveled => neighbor.distance_traveled, :distanceScore => neighbor.distance_score, :area => neighbor.area)
+      end
+    end
 
+    ##hacky- use location later
+
+    render json: neighbors_json
+  end
 
   def territory
     @user = current_user
@@ -61,6 +76,17 @@ class UsersController < ApplicationController
 
   def dashboard
     # we could just use current_user... is something dependent on this?
+    if request.xhr?
+      #user
+      #user's dogs
+      #user's walks
+      #walk's marks
+      #user's neighbors
+        #neighbor's dogs
+        #neighbor's walks
+        #walk's marks
+
+    end
     unless @user = User.find_by(id: session[:user_id])
       flash[:message] = "Sorry, it looks like you aren't logged in."
       redirect_to "/"

@@ -24,20 +24,10 @@
 </div>
 
 <div id="dogs">
-    <div data-alert class='alert-box warning radius' >
-        You haven't added any dogs yet!<a href="#" class="close">&times;</a>
-    </div>
 </div>
 
-<div id = "neighborhood-leaders">
-  <div class = "row">
-    <div class = "small-centered columns">
-      <h3>Neighborhood Leaders</h3>
-        <% @local_area.neighbors.each do |neighbor| %>
-          <%= render partial: "user_stats", locals: {user: neighbor} %>
-        <% end %>
-    </div>
-  </div>
+<div id = "neighbors">
+
 </div>
 
 <footer>

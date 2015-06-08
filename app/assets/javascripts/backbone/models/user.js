@@ -7,7 +7,10 @@ var User = Backbone.Model.extend({
 
   initialize: function(){
     this.dogs = new Dogs();
+    // we actually don't need this nested route any more because dogs#index is fetching current_user's dogs
     this.dogs.url = 'users/' + this.id + '/dogs';
+    this.neighbors = new Neighbors();
+    this.neighbors.url = 'users/' + this.id + '/neighbors';
   }
 
   //or just pass the param?
