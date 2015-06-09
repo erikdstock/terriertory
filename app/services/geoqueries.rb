@@ -5,10 +5,8 @@ module Geoqueries
     coords = self.marks.map {|mark| "#{mark.latitude} #{mark.longitude}"}
     coords = coords.join(", ")
 
-
     sql = "SELECT ST_AsText(ST_Centroid('MULTIPOINT ( " + coords +" )'));"
     puts sql
-
 
     pg_centroid = ActiveRecord::Base.connection.execute(sql)
 

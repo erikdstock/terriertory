@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   	dashboard_json = current_user.as_json.merge(
         distanceTraveled: current_user.distance_traveled,
         distanceScore: current_user.distance_score,
-        area: current_user.area)
+        area: current_user.area,
+        centroid: current_user.centroid)
     neighborhood = current_user.neighbors
 
     dashboard_json[:walks] = current_user.walks.map do |walk|
