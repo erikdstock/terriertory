@@ -2,22 +2,26 @@ var MapView = Backbone.View.extend({
 	template: JST['backbone/templates/map'],
 	el: "#map",
 	model: Map,
-	
+
 	initialize: function(){
 
 	},
 
 	render: function(){
+		debugger;
 		this.$el.html(this.template());
 		this.mapCanvasSquare();
-		
-		
+		this.map = new google.maps.Map(document.getElementById("map-canvas"), this.mapOptions);
+
+
 
 	},
 
 
 	currentUserGeoJSON: function(){
-		this.geoJSON = {}
+		this.geoJSON = {};
+
+
 		this.geoJSON["coordinates"] = this.walks["currentUser"]//...make geojson
 
 		console.log(geoJSON)
@@ -45,6 +49,7 @@ var MapView = Backbone.View.extend({
 		//this is made up. things for loading various geojsons and such?
 	},
 
-	loadGeoJSON: function(){}
+	loadGeoJSON: function(){},
+});
 
-})
+

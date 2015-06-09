@@ -16,9 +16,10 @@ var AppRouter = Backbone.Router.extend({
         // hoist view into myapp
         var mapView = myApp.mapView = new MapView({model: new Map()});
 		dogsView.render();
-      	neighborsView.render();
+    	neighborsView.render();
+        debugger;
         mapView.render();
-        
+
         myApp.dashboard.fetch({
         	success: function (dashboard, response, options) {
         		console.log(response);

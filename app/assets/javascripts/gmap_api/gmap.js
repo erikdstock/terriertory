@@ -4,23 +4,23 @@ var map, infoWindow;
   //   content: ""
   // });
 
-$(window).load(function() {
-  loadMapsApiScript();
-});
+// $(window).load(function() {
+//   loadMapsApiScript();
+// });
 
-function loadMapsApiScript() {
-  var script;
+// function loadMapsApiScript() {
+//   var script;
 
-  // console.log("map loading ...");
+//   console.log("map loading ...");
 
-  script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-               '&key=AIzaSyCR_ZOsj0P5_-j5UoT-L50l3ynij4eoY4c' +
-               '&libraries=drawing'+
-               '&callback=initializeMap';
-  document.body.appendChild(script);
-}
+//   script = document.createElement('script');
+//   script.type = 'text/javascript';
+//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+//                '&key=AIzaSyCR_ZOsj0P5_-j5UoT-L50l3ynij4eoY4c' +
+//                '&libraries=drawing'+
+//                '&callback=initializeMap';
+//   document.body.appendChild(script);
+// }
 
 
 function initializeMap() {
@@ -43,7 +43,6 @@ function initializeMap() {
       html5Geolocation(displayMap);
     } else {
       loadGeo(function(geojson_data) {
-
         map.data.addGeoJson(geojson_data);
         extendBounds(geojson_data, "Polygon");
       });
@@ -138,7 +137,7 @@ if ($("#square-map").hasClass("walk-summary")) {
   })
 
   $("#load-local-area-geo-layer").click(function() {
-
+//CLEAR MAP FEATURES
     loadLocalAreaGeoLayer(function(geojson_data) {
       map.data.forEach(function(feature) {
         map.data.remove(feature);
