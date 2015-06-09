@@ -8,7 +8,10 @@ var MapView = Backbone.View.extend({
 	},
 
 	render: function(){
-		//initial map view?
+		this.$el.html(this.template());
+		this.mapCanvasSquare();
+		
+		
 
 	},
 
@@ -18,6 +21,18 @@ var MapView = Backbone.View.extend({
 		this.geoJSON["coordinates"] = this.walks["currentUser"]//...make geojson
 
 		console.log(geoJSON)
+	},
+
+	mapCanvasSquare: function() {
+	  console.log('setting square map layout');
+		var $width = document.documentElement.clientWidth;
+  	var $height = $('.top-bar').height();
+	  $('#map-canvas').css({
+	    "height": $width,
+	    // "position": "fixed",
+	    // "top": $height,
+	    "background-color": "grey"
+	  });
 	},
 
 
@@ -33,16 +48,3 @@ var MapView = Backbone.View.extend({
 	loadGeoJSON: function(){}
 
 })
-
-/*
-collection: {
-	myMarks: [{walk objects{marks}}],
-	neighborMarks: [{
-		neighbor{
-			walks{marks}}},
-		{neighbor{
-			walks{marks}}}]
-	}]
-}
-
-*/
