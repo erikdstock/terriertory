@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def neighbors
-    neighbors = LocalArea.new(self)
+    @neighbors ||= LocalArea.new(self)    
 
   end
 
