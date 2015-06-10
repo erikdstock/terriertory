@@ -62,29 +62,8 @@ class ApplicationController < ActionController::Base
             )
         end
       end
+      puts dashboard_json
 
-
-
-    # puts current_user.walks.all
-
-
-    # maps_json = []
-    # current_user.walks.each do |walk|
-    #   temp_walk = []
-    #   walk.marks.each do |mark|
-    #    temp_walk << [mark.coords.x, mark.coords.y]
-    #   end
-    #   maps_json << temp_walk
-    # end
-
-    # maps_json = maps_json.to_json
-
-    # puts maps_json
-
-    # puts maps_json
-
-
-    # puts maps_json
     return dashboard_json
   end
 

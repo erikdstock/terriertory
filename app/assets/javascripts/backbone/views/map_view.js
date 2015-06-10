@@ -15,28 +15,28 @@ var MapView = Backbone.View.extend({
 
 
 	addWalkGeoJSON: function(walk, geometry, color){
-		debugger;
-		
-		var geoJSON = {
-			type: "Feature",
-			geometry: {
-				type: geometry,
-				coordinates: [walk]
+		//only include walks with at least one mark
+		if (walk.length > 0){ 
+			var geoJSON = {
+				type: "Feature",
+				geometry: {
+					type: geometry,
+					coordinates: [walk]
+				}
+			};
+
+
+			//close loop
+			if (geometry == 'polygon'){
+				geoJSON.geometry.coordinates[0].push(geoJSON.geometry.coordinates[0][0]);
 			}
-		};
 
-
-		//close loop
-		if (geometry == 'polygon'){
-			geoJSON.geometry.coordinates[0].push(geoJSON.geometry.coordinates[0][0]);
+			console.log(geoJSON.geometry.coordinates);
+			map.data.addGeoJson(geoJSON);
+			this.extendBounds(geoJSON, "Polygon");
 		}
-
-		// console.log(newGeoJSON.geometry.coordinates);
-		console.log(geoJSON.geometry.coordinates);
-
-		map.data.addGeoJson(geoJSON);
-		// this.extendBounds(geoJSON, "Polygon");
 	},
+
 
 	extendBounds: function (geoJson, geotype) {
   	var bounds, coordinates;
