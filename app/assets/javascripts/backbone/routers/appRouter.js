@@ -35,7 +35,7 @@ var AppRouter = Backbone.Router.extend({
                             neighbor["walks"]
                     })
                 }});
-                console.log("current user geojson!");
+                console.log(mapView.model.get('walks').currentUser[0])
                 mapView.addWalkGeoJSON(mapView.model.get('walks').currentUser[0], "polygon");
 
                 console.log(mapView.geoJSON);

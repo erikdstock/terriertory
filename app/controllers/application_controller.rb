@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
     dashboard_json[:walks] = current_user.walks.map do |walk|
       walk.marks.map do |mark|
-        [mark.coords.x, mark.coords.y]
+        [mark.latitude, mark.longitude]
       end
     end
 

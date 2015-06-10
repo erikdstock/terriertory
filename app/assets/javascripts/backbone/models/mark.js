@@ -4,10 +4,10 @@ var Mark = Backbone.Model.extend({
   },
 
   longitude: function () {
-  	return this.coords.y
+  	return this.coords.x
   },
   
   latitude: function () {
-  	return this.coords.x
+  	return this.coords.y
   },
 });

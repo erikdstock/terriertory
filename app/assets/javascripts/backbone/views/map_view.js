@@ -15,49 +15,41 @@ var MapView = Backbone.View.extend({
 
 
 	addWalkGeoJSON: function(walk, geometry, color){
+		debugger;
 		
-		var newGeoJSON = {
-			"type": 'FeatureCollection',
-			"features": [{
-				"type": "Feature",
-				"geometry": {
-					"type": geometry,
-					"coordinates": [walk],
-					},
-				"properties": {
-					"zIndex": 9999,
-					"fillColor": color || "#ff292c",
-					"strokeColor": color || "#ff292c",
-					"strokeWeight": 8,
-					"fillOpacity": 0.5
-				}
-			}]
+		var geoJSON = {
+			type: "Feature",
+			geometry: {
+				type: geometry,
+				coordinates: [walk]
+			}
 		};
 
-		var geoJSON = {
-"type": "FeatureCollection", 
-"features": [
-	{"type": "Feature",
-	"geometry": {
-		"type": "polygon",
-		 "coordinates": [[[-87.63747, 41.88983], [-87.63912, 41.89065], [-87.64046, 41.89233], [-87.63709, 41.89237], [-87.63703, 41.89153], [-87.63556, 41.89153], [-87.63553, 41.88997], [-87.63747, 41.88983], [-87.63747, 41.88983], [-87.63245, 41.89], [-87.63245, 41.88572], [-87.63686, 41.88572], [-87.63661, 41.88613], [-87.63532, 41.88687], [-87.63681, 41.88843], [-87.63698, 41.8891], [-87.63747, 41.88983], [-87.63747, 41.88983], [-87.63854, 41.88989], [-87.63805, 41.88908], [-87.6401, 41.88908], [-87.64169, 41.89105], [-87.64148, 41.89138], [-87.63253, 41.89159], [-87.63253, 41.89001], [-87.63747, 41.88983], [-87.63747, 41.88983]]]
-		},
-	"properties": {
-		"zIndex": 9999,
-		"fillColor": "#ff292c",
-		"strokeColor": "#ff292c",
-		"strokeWeight": 8,
-		"fillOpacity": 0.5
-		}
-	}]};
+		var geoJSON2 = {
+				type: "Feature",
+				geometry: {
+					type: geometry,
+					coordinates: [[
+						[-87.63747, 41.88983], 
+						[-87.63912, 41.89065], 
+						[-87.64046, 41.89233], 
+						[-87.63709, 41.89237], 
+						[-87.63703, 41.89153],
+						[-87.63253, 41.89001],
+						[-87.63747, 41.88983], 
+						[-87.63747, 41.88983]
+						]]
+					}
+			};
 
 		//close loop
-		geoJSON.features[0].geometry.coordinates[0].push(geoJSON.features[0].geometry.coordinates[0][0]);
+		if (geometry == 'polygon'){
+			geoJSON.geometry.coordinates[0].push(geoJSON.geometry.coordinates[0][0]);
+		}
 
-		console.log(newGeoJSON.features[0].geometry.coordinates);
-		console.log(geoJSON.features[0].geometry.coordinates);
+		// console.log(newGeoJSON.geometry.coordinates);
+		console.log(geoJSON.geometry.coordinates);
 
-		debugger;
 		map.data.addGeoJson(geoJSON);
 		// this.extendBounds(geoJSON, "Polygon");
 	},
