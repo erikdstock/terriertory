@@ -17,12 +17,14 @@ var AppRouter = Backbone.Router.extend({
         var mapView = myApp.mapView = new MapView({model: new Map()});
 		dogsView.render();
     	neighborsView.render();
-        debugger;
         mapView.render();
 
         myApp.dashboard.fetch({
         	success: function (dashboard, response, options) {
-        		console.log(response);
+        		console.log("dashboard fetch response!")
+                console.log(response);
+                console.log("walks")
+                console.log(response.walks)
         		dogsView.collection.reset(response.dogs);
         		neighborsView.collection.reset(response.neighbors);
 
@@ -33,6 +35,13 @@ var AppRouter = Backbone.Router.extend({
                             neighbor["walks"]
                     })
                 }});
+                console.log("current user geojson!");
+                // mapView.currentUserGeoJSON();
+
+                console.log(mapView.geoJSON);
+                debugger;
+
+
         	}
         });
     },

@@ -15,13 +15,51 @@ var MapView = Backbone.View.extend({
 
 
 	currentUserGeoJSON: function(){
-		this.geoJSON = {};
-		this.geoJSON.options = myApp.mapOptions
-		this.geoJSON["coordinates"] = this.model.walks["currentUser"];//...make geojson
-		console.log(this.walks["currentUser"])
+		this.geoJSON = {
+			"type": 'Feature',
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [this.model.get("walks")["currentUser"][0]],
+			},
+			// "properties": {
+				// "geometry": "Polygon",
+				// "zIndex": 9999,
+				// "fillColor": "#ff292c",
+				// "strokeColor": "#ff292c",
+				// "strokeWeight": 8,
+				// "fillOpacity": 0.5
+			// }
+		};
+		debugger;
+		this.geoJSON.geometry.coordinates[0].push(this.geoJSON.geometry.coordinates[0][0]);
 
-		console.log(geoJSON);
+		map.data.addGeoJson(this.geoJSON);
+		this.extendBounds(this.geoJSON, "Polygon");
+		// this.geoJSON.options = myApp.mapOptions;
 	},
+
+	extendBounds: function (geojson_data, geotype) {
+  	var bounds, coordinates;
+  	bounds = new google.maps.LatLngBounds();
+
+  	switch (geotype) {
+    case "Polygon":
+      coordinates = geojson_data.geometry.coordinates[0];
+      coordinates.forEach( function(coordinate) {
+        bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));
+        });
+    break;
+    case "Point":
+      markers = geojson_data.features;
+      markers.forEach( function(point) {
+        bounds.extend(new google.maps.LatLng(point.geometry.coordinates[1], point.geometry.coordinates[0]));
+        });
+    break;
+  }
+
+  map.fitBounds(bounds);
+  map.panToBounds(bounds);
+},
 
 	mapCanvasSquare: function() {
 		console.log('setting square map layout');
