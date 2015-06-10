@@ -25,22 +25,6 @@ var MapView = Backbone.View.extend({
 			}
 		};
 
-		var geoJSON2 = {
-				type: "Feature",
-				geometry: {
-					type: geometry,
-					coordinates: [[
-						[-87.63747, 41.88983], 
-						[-87.63912, 41.89065], 
-						[-87.64046, 41.89233], 
-						[-87.63709, 41.89237], 
-						[-87.63703, 41.89153],
-						[-87.63253, 41.89001],
-						[-87.63747, 41.88983], 
-						[-87.63747, 41.88983]
-						]]
-					}
-			};
 
 		//close loop
 		if (geometry == 'polygon'){
