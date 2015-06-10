@@ -25,7 +25,6 @@ var MapView = Backbone.View.extend({
 					"coordinates": [walk],
 					},
 				"properties": {
-					"geometry": "Polygon",
 					"zIndex": 9999,
 					"fillColor": color || "#ff292c",
 					"strokeColor": color || "#ff292c",
