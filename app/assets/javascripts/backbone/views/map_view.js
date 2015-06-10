@@ -8,35 +8,31 @@ var MapView = Backbone.View.extend({
 	},
 
 	render: function(){
-		debugger;
 		this.$el.html(this.template());
 		this.mapCanvasSquare();
-		this.map = new google.maps.Map(document.getElementById("map-canvas"), this.mapOptions);
-
-
-
+		map = new google.maps.Map(document.getElementById("map-canvas"), myApp.mapOptions);
 	},
 
 
 	currentUserGeoJSON: function(){
 		this.geoJSON = {};
+		this.geoJSON.options = myApp.mapOptions
+		this.geoJSON["coordinates"] = this.model.walks["currentUser"];//...make geojson
+		console.log(this.walks["currentUser"])
 
-
-		this.geoJSON["coordinates"] = this.walks["currentUser"]//...make geojson
-
-		console.log(geoJSON)
+		console.log(geoJSON);
 	},
 
 	mapCanvasSquare: function() {
-	  console.log('setting square map layout');
+		console.log('setting square map layout');
 		var $width = document.documentElement.clientWidth;
-  	var $height = $('.top-bar').height();
-	  $('#map-canvas').css({
-	    "height": $width,
-	    // "position": "fixed",
-	    // "top": $height,
-	    "background-color": "grey"
-	  });
+		var $height = $('.top-bar').height();
+		$('#map-canvas').css({
+		"height": $width,
+		// "position": "fixed",
+		// "top": $height,
+		"background-color": "grey"
+		});
 	},
 
 
