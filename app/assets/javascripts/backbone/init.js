@@ -3,6 +3,7 @@
 var appRouter = new AppRouter();
 var myApp = {
 	dashboard: new Dashboard(),
+
   loadMapsApiScript: function() {
     var script;
 
@@ -19,10 +20,10 @@ var myApp = {
 
   //initialize entire app once google maps api has loaded
   initialize: function(){
-    console.log("hello");
+    console.log("Initializing App");
     this.mapOptions = {
-      // zoom: 15,
-      // center: defaultLatLng,
+      zoom: 15,
+      center: new google.maps.LatLng(41.88983, -87.63747),
       mapTypeId: google.maps.MapTypeId.NORMAL,
       disableDefaultUI: true,
       // panControl: false,

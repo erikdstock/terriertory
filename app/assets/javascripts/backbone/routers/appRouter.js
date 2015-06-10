@@ -36,10 +36,9 @@ var AppRouter = Backbone.Router.extend({
                     })
                 }});
                 console.log("current user geojson!");
-                // mapView.currentUserGeoJSON();
+                mapView.addWalkGeoJSON(mapView.model.get('walks').currentUser[0], "polygon");
 
                 console.log(mapView.geoJSON);
-                debugger;
 
 
         	}
