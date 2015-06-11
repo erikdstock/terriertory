@@ -17,7 +17,7 @@ var MapView = Backbone.View.extend({
 
 	addWalkGeoJson: function(walk, geometry, color){
 		//only include walks with at least one mark
-		if (walk.length > 0){ 
+		if (walk.length > 0){
 			var geoJSON = {
 				type: "Feature",
 				geometry: {
@@ -28,23 +28,26 @@ var MapView = Backbone.View.extend({
 
 
 			//close loop if geometry is polygon
-			if (geometry == 'polygon'){
+			if (geometry == 'Polygon'){
 				geoJSON.geometry.coordinates[0].push(geoJSON.geometry.coordinates[0][0]);
 			}
 
 			map.data.addGeoJson(geoJSON);
-
-			// extendBounds is not working right now.
-			// this.extendBounds(geoJSON, geometry);
+			this.extendBounds(geoJSON, geometry);
 		}
 	},
 
 	addUsersWalks: function(walksCollection){
 		var that = this
 		walksCollection.forEach(function(walk){
-			that.addWalkGeoJson(walk, "polygon")
+			that.addWalkGeoJson(walk, "Polygon")
 		})
 	},
+
+
+  establishBounds: function () {
+
+  };,
 
 
 	extendBounds: function (geoJson, geotype) {
@@ -53,6 +56,7 @@ var MapView = Backbone.View.extend({
 
   	switch (geotype) {
     case "Polygon":
+      debugger;
       coordinates = geoJson.geometry.coordinates[0];
       coordinates.forEach( function(coordinate) {
         bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));

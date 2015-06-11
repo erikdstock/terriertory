@@ -22,7 +22,7 @@ var AppRouter = Backbone.Router.extend({
     	success: function (dashboard, response, options) {
     		dogsView.collection.reset(response.dogs);
     		neighborsView.collection.reset(response.neighbors);
-        
+
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
           walks: {
@@ -45,7 +45,7 @@ var AppRouter = Backbone.Router.extend({
         // Iterate over neighbors and load each of their walk collections
         mapView.model.get('walks').neighbors.forEach(function(neighbor){
           neighbor.forEach(function(walk){
-            mapView.addWalkGeoJson(walk, "polygon");
+            mapView.addWalkGeoJson(walk, "Polygon");
           });
         });
 
