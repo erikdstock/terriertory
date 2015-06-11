@@ -32,12 +32,17 @@ var AppRouter = Backbone.Router.extend({
                 mapView.model.set({walks: {
                     currentUser: response.walks,
                     neighbors: response.neighbors.map(function(neighbor){
-                            neighbor["walks"]
+                        return neighbor["walks"]
                     })
                 }});
-                console.log(mapView.model.get('walks').currentUser[0])
-                mapView.model.get('walks').currentUser.forEach(function(walk, i){
-                    mapView.addWalkGeoJSON(walk, "polygon", i);
+
+                mapView.addUsersWalks(mapView.model.get('walks').currentUser);
+
+                mapView.model.get('walks').neighbors.forEach(function(neighbor){
+                    console.log(neighbor);
+                    neighbor.forEach(function(walk){
+                        mapView.addWalkGeoJson(walk, "polygon");
+                    });
                 });
 
                 console.log(mapView.geoJSON);

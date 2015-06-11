@@ -2,7 +2,7 @@ module Geoqueries
 
   def centroid
     
-    coords = self.marks.map {|mark| "#{mark.latitude} #{mark.longitude}"}
+    coords = self.marks.map {|mark| "#{mark.longitude} #{mark.latitude}"}
     coords = coords.join(", ")
 
     sql = "SELECT ST_AsText(ST_Centroid('MULTIPOINT ( " + coords +" )'));"

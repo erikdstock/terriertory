@@ -14,7 +14,7 @@ var MapView = Backbone.View.extend({
 	},
 
 
-	addWalkGeoJSON: function(walk, geometry, color){
+	addWalkGeoJson: function(walk, geometry, color){
 		//only include walks with at least one mark
 		if (walk.length > 0){ 
 			var geoJSON = {
@@ -33,8 +33,15 @@ var MapView = Backbone.View.extend({
 
 			console.log(geoJSON.geometry.coordinates);
 			map.data.addGeoJson(geoJSON);
-			this.extendBounds(geoJSON, "Polygon");
+			// this.extendBounds(geoJSON, "Polygon");
 		}
+	},
+
+	addUsersWalks: function(walksCollection){
+		var that = this
+		walksCollection.forEach(function(walk){
+			that.addWalkGeoJson(walk, "polygon")
+		})
 	},
 
 
