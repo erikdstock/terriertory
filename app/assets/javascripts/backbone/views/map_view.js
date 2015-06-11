@@ -26,12 +26,11 @@ var MapView = Backbone.View.extend({
 			};
 
 
-			//close loop
+			//close loop if geometry is polygon
 			if (geometry == 'polygon'){
 				geoJSON.geometry.coordinates[0].push(geoJSON.geometry.coordinates[0][0]);
 			}
 
-			console.log(geoJSON.geometry.coordinates);
 			map.data.addGeoJson(geoJSON);
 			// this.extendBounds(geoJSON, "Polygon");
 		}
