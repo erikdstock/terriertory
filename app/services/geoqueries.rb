@@ -14,7 +14,13 @@ module Geoqueries
 
   end
 
-  def strip_point_lable
+  def centroid_to_LatLng
+    array = self.centroid.sub("POINT (", '').sub(')', '').split(" ")
+    lat_lng = {"lat" => array[0].to_f, "lng" => array[1].to_f}
+  end
+
+
+  def strip_point_label
     self.sub("POINT (", '').sub(')', '')
   end
 

@@ -31,12 +31,12 @@ var AppRouter = Backbone.Router.extend({
               return neighbor["walks"]
             })
           },
-
+          centroid: response.centroid
           //response.centroid is currently coming in in PostGIS "POINT (y, x)" form. the below LatLng constructor doesn't work. change on server side.
-          centroid: new google.maps.LatLng(response.centroid[0], response.centroid[1])
+          // centroid: new google.maps.LatLng(response.centroid[0], response.centroid[1])
 
         });
-
+        debugger;
 
         mapView.render();
         // Load Current User's Walk Collection

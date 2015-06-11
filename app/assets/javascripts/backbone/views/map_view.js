@@ -11,6 +11,7 @@ var MapView = Backbone.View.extend({
 		this.$el.html(this.template());
 		this.mapCanvasSquare();
 		map = new google.maps.Map(document.getElementById("map-canvas"), myApp.mapOptions);
+		map.setCenter(this.model.get('centroid'))
 	},
 
 
@@ -32,7 +33,9 @@ var MapView = Backbone.View.extend({
 			}
 
 			map.data.addGeoJson(geoJSON);
-			// this.extendBounds(geoJSON, "Polygon");
+
+			// extendBounds is not working right now.
+			// this.extendBounds(geoJSON, geometry);
 		}
 	},
 

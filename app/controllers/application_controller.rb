@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
         distanceTraveled: current_user.distance_traveled,
         distanceScore: current_user.distance_score,
         area: current_user.area,
-        centroid: current_user.centroid)
+        centroid: current_user.centroid_to_LatLng.as_json)
     neighborhood = current_user.neighbors
 
     dashboard_json[:walks] = current_user.walks.map do |walk|
