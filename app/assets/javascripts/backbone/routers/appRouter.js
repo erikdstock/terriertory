@@ -10,28 +10,35 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	dashboard: function(){
-		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
+		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page? eg mapView below
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
-      // mapView in global namespace- is this a good pattern?
     var mapView = myApp.mapView = new MapView({model: new Map()});
 		dogsView.render();
     neighborsView.render();
-    mapView.render();
+    // mapView.render();
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
     		dogsView.collection.reset(response.dogs);
     		neighborsView.collection.reset(response.neighbors);
-
-        // Parse dashboard walks into currentUser and neighbor walks
-        mapView.model.set({walks: {
+        
+        // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
+        mapView.model.set({
+          walks: {
             currentUser: response.walks,
             neighbors: response.neighbors.map(function(neighbor){
-                return neighbor["walks"]
+              return neighbor["walks"]
             })
-        }});
+          },
 
+          //response.centroid is currently coming in in PostGIS "POINT (y, x)" form. the below LatLng constructor doesn't work. change on server side.
+          centroid: new google.maps.LatLng(response.centroid[0], response.centroid[1])
+
+        });
+
+
+        mapView.render();
         // Load Current User's Walk Collection
         mapView.addUsersWalks(mapView.model.get('walks').currentUser);
 
