@@ -1,13 +1,13 @@
 <div class = "row">
   <div class = "small-centered columns ">
-    <a class='button small expand radius small-12 '>****<%= name %> <%= breed %> - <%= distanceTraveled %> miles - <%= distanceScore %> pts </a>
+    <a class='button small expand radius small-12 '><%= name %></a>
   </div>
   <div class = "dog-details" style = "display:none">
-    HELLO PUPPIES
-    <%= name %> - <%= breed %> - <%= distanceTraveled %> - <%= distanceScore%>
-    <%= distanceTraveled %>
-    <%= "avatar file name!" + avatar_file_name %>
-    <img src= "https://s3-us-west-2.amazonaws.com/terriertory/dogs/1/avatar/large.jpg" >
-
+    <div class = "row" >
+      <div class = "small-6 small-centered columns">
+        <img src= "https://s3-us-west-2.amazonaws.com/terriertory/dogs/<%=id%>/avatar/thumb.jpg">
+        <%= breed %> | <%= distanceTraveled %> miles | <%= distanceScore%> pts
+      </div>
+    </div>
   </div>
 </div>
