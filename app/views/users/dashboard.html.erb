@@ -4,12 +4,12 @@
       <!-- <ul class="button-group radius"> -->
           <a class='button small radius left ' id="load-territory-geo-layer">My Territory</a>
      <!--      <a class='button small' id="load-neighborhood-geo-layer">Neighborhood</a> -->
-          <a class='button small radius right' id="load-local-area-geo-layer">Local Area</a>
+          <a class='button small radius right' id="load-local-area-geo-layer">Neighbors</a>
       <!-- </ul> -->
     </div>
   </div>
 
-<div id='square-map' data-user-walk-count="<%= @user.marks.count %>">
+  <div id='square-map'>
     <%= render "shared/map" %>
   </div>
 </div>
@@ -27,7 +27,6 @@
 </div>
 
 <div id = "neighbors">
-
 </div>
 
 <footer>

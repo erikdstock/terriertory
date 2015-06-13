@@ -2,7 +2,6 @@ var NeighborView = Backbone.View.extend({
   template: JST["backbone/templates/neighbor_button"],
 
   initialize: function() {
-    console.log("Creating neighbor view");
   },
 
   events: {

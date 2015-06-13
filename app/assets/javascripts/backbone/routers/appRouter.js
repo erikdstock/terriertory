@@ -1,39 +1,39 @@
 var AppRouter = Backbone.Router.extend({
 	initialize: function(){
-		console.log('setting up router');
 	},
 
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
-		"dashboard": "dashboard",
-		//this might not be the right way to start a new cruddy walk
+		"backbone": "dashboard",
+		//example second route
 		"walks/:id": "showWalk"
 	},
 
-	//how to actually find rails' current_user for dashboard?
 	dashboard: function(){
-		console.log('rendering dashboard');
-    var user = new User({id: 1});
-
-		var dogsView = new DogsView({collection: user.dogs});
+		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page?
+		var dogsView = new DogsView({collection: new Dogs()});
+    var neighborsView = new NeighborsView({collection: new Neighbors()});
 		dogsView.render();
-
-		user.dogs.fetch({
-      reset: true,
-      success: function(){
-        console.log("Found dogs!");
-      }
+  	neighborsView.render();
+    
+    myApp.dashboard.fetch({
+    	success: function (dashboard, response, options) {
+    		console.log(response);
+    		dogsView.collection.reset(response.dogs);
+    		neighborsView.collection.reset(response.neighbors);
+    	}
     });
 
-    var neighborsView = new NeighborsView({collection: user.neighbors});
-    neighborsView.render();
 
-    user.neighbors.fetch({
-      reset: true,
-      success: function(){
-        console.log("Found neighbors!");
-      }
-    });
+    // var neighborsView = new NeighborsView({collection: user.neighbors});
+    // neighborsView.render();
+
+    // user.neighbors.fetch({
+    //   reset: true,
+    //   success: function(){
+    //     console.log("Found neighbors!");
+    //   }
+    // });
 
 	},
 
