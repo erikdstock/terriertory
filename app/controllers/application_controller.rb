@@ -54,14 +54,14 @@ class ApplicationController < ActionController::Base
 
 
       dashboard_json[:neighbors].each do |neighbor|
-        if neighbor.walks.any?
+        # if neighbor.walks.any?
           neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
           neighbor["walks"].map! do |walk|
             neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
           end
-        end
+        # end
 
-        if neighbor.dogs.any?
+        # if neighbor.dogs.any?
           neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor["id"] }
           neighbor[:dogs].map! do |dog|
               dog.as_json.merge(
@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
                 )
             end
           end
-        end
+        # end
     end
 
     puts dashboard_json
