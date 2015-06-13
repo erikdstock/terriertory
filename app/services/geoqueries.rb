@@ -1,7 +1,7 @@
 module Geoqueries
 
   def centroid
-    
+
     coords = self.marks.map {|mark| "#{mark.longitude} #{mark.latitude}"}
     coords = coords.join(", ")
 

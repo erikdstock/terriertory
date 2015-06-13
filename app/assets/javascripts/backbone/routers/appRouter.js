@@ -36,24 +36,20 @@ var AppRouter = Backbone.Router.extend({
           // centroid: new google.maps.LatLng(response.centroid[0], response.centroid[1])
 
         });
-        debugger;
+        // debugger;
 
         mapView.render();
         // Load Current User's Walk Collection
-        mapView.addUsersWalks(mapView.model.get('walks').currentUser);
+        mapView.renderGeoJson(mapView.model.get('walks').currentUser);
 
         // Iterate over neighbors and load each of their walk collections
         mapView.model.get('walks').neighbors.forEach(function(neighbor){
-          neighbor.forEach(function(walk){
-            mapView.addWalkGeoJson(walk, "Polygon");
-          });
+          mapView.renderGeoJson(neighbor, "Polygon", "blue");
         });
 
       }
     });
   },
-
-
 
 	showWalk: function(){
 		console.log ('check out this walk!');
