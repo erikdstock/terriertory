@@ -8,7 +8,7 @@ User.create!(username: "Frank Sinatra", email: "frank@sinatra.com", password: "p
 ellen = User.create!(username: "Ellen Degeneres", email: "ellen@degeneres.com", password: "password")
 grace = User.create!(username: "Grace Hopper", email: "grace@hopper.com", password: "password")
 
-dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Sheltie")
+dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Sheltie", avatar: "http://upload.wikimedia.org/wikipedia/commons/3/37/Female_dalmatian_head_shot.jpg")
 dog2 = Dog.create!(owner: User.find_by(username: "Foobar"), name: "Fido", birthday: "January 1, 1999", breed: "German Shepherd")
 dog3 = Dog.create!(owner: User.find_by(username: "Mrs. O'Leary"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Cow")
 dog4 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Max", birthday: "October 10, 1900", breed: "Mammal")
