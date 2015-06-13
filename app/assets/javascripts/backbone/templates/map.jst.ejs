@@ -1,12 +1,21 @@
+
+<!-- style='position:absolute; top: 0; z-index: 999' -->
 <div class='row'>
-  <div class="small-12 small-centered columns">
-    <!-- <ul class="button-group radius"> -->
-        <a class='button small radius left ' id="load-territory-geo-layer">My Territory</a>
-   <!--      <a class='button small' id="load-neighborhood-geo-layer">Neighborhood</a> -->
-        <a class='button small radius right' id="load-local-area-geo-layer">Neighbors</a>
-    <!-- </ul> -->
-  </div>
-</div>
+	<div class='small-12 small-centered columns'>
+		<div class="switch"> 
+			<h3>Neighbors</h3><label><input type="checkbox" id="Neighbors">Neighbors</label>
+		</div>
+		<a href="#" data-dropdown="drop1" class="button dropdown">Style <br>
+			<ul id="drop1" data-dropdown-content class="f-dropdown">
+				<li> <a href="#">Polygon</a></li>
+				<li> <a href="#">Line</a></li>
+				<li> <a href="#">Point</a></li>
+			</ul>
+		</a>
+
+	</div>
+</div> 
+
 
 
 <div id="map-canvas"></div>
