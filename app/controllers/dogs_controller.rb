@@ -7,6 +7,7 @@ class DogsController < ApplicationController
     dogs_json = dogs.map do |dog|
       dog.as_json.merge(:distanceTraveled => dog.distance_traveled, :distanceScore => dog.distance_score, :area => dog.area)
     end
+    puts dogs_json
 
     render json: dogs_json
   end
