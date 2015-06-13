@@ -2,7 +2,6 @@ var DogView = Backbone.View.extend({
   template: JST["backbone/templates/dog_button"],
 
   initialize: function() {
-    console.log("Creating dog view");
   },
 
   events: {
@@ -16,6 +15,7 @@ var DogView = Backbone.View.extend({
   },
 
   render: function() {
+        debugger;
     this.$el.html(this.template(this.model.attributes));
   }
 });
