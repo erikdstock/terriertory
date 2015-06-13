@@ -4,8 +4,6 @@ var NeighborsView = Backbone.View.extend({
   el: "#neighbors",
 
   initialize: function(){
-    console.log("Creating neighbors view!");
-    console.log(this.collection);
     this.listenTo(this.collection, 'reset', this.addAll);
   },
 
