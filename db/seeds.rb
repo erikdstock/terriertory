@@ -1,6 +1,6 @@
 User.create!(username: "Bob", email: "bob@gmail.com", password: "password", avatar: "https://www.singers.com/people/images/Bob_Chilcott.jpg")
 User.create!(username: "Mrs. O'Leary", email: "cat@oleary.com", password: "password", avatar: "http://vmbulletin.com/wp-content/uploads/2014/09/cow1.png")
-User.create!(username: "Jeff Goldblum", email: "jeff@goldblum.com", password: "password", avatar: "http://www.movpins.com/big/MV5BMjI5NzUwMjcyNF5BMl5BanBnXkFtZTcwMjg4MTY3Ng/still-of-jeff-goldblum-in-the-lost-world:-jurassic-park-(1997)-large-picture.jpg)"
+User.create!(username: "Jeff Goldblum", email: "jeff@goldblum.com", password: "password", avatar: "http://www.movpins.com/big/MV5BMjI5NzUwMjcyNF5BMl5BanBnXkFtZTcwMjg4MTY3Ng/still-of-jeff-goldblum-in-the-lost-world:-jurassic-park-(1997)-large-picture.jpg")
 User.create!(username: "Nicolas Cage", email: "nic@cage.com", password: "password", avatar: "http://www.tasteofcinema.com/wp-content/uploads/2014/12/best-nicholas-cage-movies.jpg")
 User.create!(username: "Jeff Bridges", email: "jeff@bridges.com", password: "password")
 User.create!(username: "Frank Sinatra", email: "frank@sinatra.com", password: "password")
