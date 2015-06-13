@@ -25,7 +25,6 @@ var MapView = Backbone.View.extend({
     if (collection = options.walksCollection) {
     	geoJson = this.buildCollectionGeoJson(collection, geotype);
     }
-    debugger;
     if (geoJson) {
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
@@ -67,20 +66,22 @@ var MapView = Backbone.View.extend({
       type: "FeatureCollection",
       features: []
     };
+    console.log(walksCollection);
     walksCollection.forEach(function(walk){
     	var walkFeatureGeoJson;
     	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype)){
+    		console.log(walkFeatureGeoJson);
     		featureCollection.features.push(walkFeatureGeoJson);
     	};
+	  });
 
 	    // console.log(featureCollection);
-	    if (featureCollection.features[0]) {
-	    	console.log(featureCollection);
-	      return featureCollection;
-	    } else {
-	      return false;
-	    }
-	  });
+    if (featureCollection.features[0]) {
+    	console.log(featureCollection);
+      return featureCollection;
+    } else {
+      return false;
+    }
 	},
 
 	buildWalkGeoJson: function(walk, geotype){
