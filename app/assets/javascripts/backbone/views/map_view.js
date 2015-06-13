@@ -14,11 +14,17 @@ var MapView = Backbone.View.extend({
 		map.setCenter(this.model.get('centroid'))
 	},
 
-  renderGeoJson: function(collection, geotype, color){
-    var geotype = geotype || "Polygon", color = color || "#ff292c", geoJson;
 
-    geoJson = this.buildCollectionGeoJson(collection, geotype);
-    // console.log(geoJson.features.length);
+	// options: {walksCollection || walk, geotype, color/style properties}
+  renderGeoJson: function(options){
+    var geotype = options.geotype || "Polygon",
+    		color = options.color || "#ff292c", 
+    		geoJson, collection, walk;
+
+    // Route to geoJson constructor depending on type of data received 
+    if (collection = options.walksCollection) {
+    	geoJson = this.buildCollectionGeoJson(collection, geotype);
+    }
     if (geoJson) {
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
@@ -56,17 +62,22 @@ var MapView = Backbone.View.extend({
 
 	buildCollectionGeoJson: function(walksCollection, geotype){
 		var that = this;
-
     var featureCollection = {
       type: "FeatureCollection",
       features: []
     };
-
+    console.log(walksCollection);
     walksCollection.forEach(function(walk){
-      featureCollection.features.push(that.buildWalkGeoJson(walk, geotype))
-    });
+    	var walkFeatureGeoJson;
+    	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype)){
+    		console.log(walkFeatureGeoJson);
+    		featureCollection.features.push(walkFeatureGeoJson);
+    	};
+	  });
 
+	    // console.log(featureCollection);
     if (featureCollection.features[0]) {
+    	console.log(featureCollection);
       return featureCollection;
     } else {
       return false;
@@ -88,7 +99,9 @@ var MapView = Backbone.View.extend({
 				walkFeature.geometry.coordinates[0].push(walkFeature.geometry.coordinates[0][0]);
 			}
 
-      return walkFeature
+      return walkFeature;
+		} else {
+			return false;
 		}
 	},
 
