@@ -1,7 +1,29 @@
+
+setup sdk
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.34.min.js"></script>
-<% s3.getObject({Bucket: 'terriertory', Key: 'AKIAIR7ATUOM3FV5GDDQ'}).on('success', function(response) {
-  console.log("Key was", response.request.params.Key);
-}).send(); %>
+
+login
+<script> AWS.config.update({accessKeyId: 'AKIAIR7ATUOM3FV5GDDQ', secretAccessKey: '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'}); %>
+
+<script type="text/javascript">
+  var bucket = new AWS.S3({params: {Bucket: 'myBucket'}});
+  bucket.listObjects(function (err, data) {
+    if (err) {
+      document.getElementById('status').innerHTML =
+        'Could not load objects from S3';
+    } else {
+      document.getElementById('status').innerHTML =
+        'Loaded ' + data.Contents.length + ' items from S3';
+      for (var i = 0; i < data.Contents.length; i++) {
+        document.getElementById('objects').innerHTML +=
+          '<li>' + data.Contents[i].Key + '</li>';
+      }
+    }
+  });
+</script>
+
+
+
 
 <div class = "row">
   <div class = "small-centered columns ">

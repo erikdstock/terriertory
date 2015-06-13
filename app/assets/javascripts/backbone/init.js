@@ -18,6 +18,16 @@ var myApp = {
     document.body.appendChild(script);
   },
 
+    loadAwsSdkScript: function() {
+    var script;
+
+    console.log("AWS Sdk map loading ...");
+
+    script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://sdk.amazonaws.com/js/aws-sdk-2.1.34.min.js';
+    document.body.appendChild(script);
+  },
 
 
   //initialize entire app once google maps api has loaded
@@ -34,6 +44,7 @@ var myApp = {
       styles:[{"featureType":"road","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#01051d"},{"weight":1}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#01051d"},{"weight":0.8}]},{"featureType":"landscape","stylers":[{"color":"#f5f5f4"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"elementType":"labels","stylers":[{"visibility":"off"}]},{"elementType":"labels.text","stylers":[{"visibility":"on"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#000000"}]},{"elementType":"labels.icon","stylers":[{"visibility":"on"}]}]
     };
     Backbone.history.start();
+    loadAwsSdkScript();
   }
 };
 
