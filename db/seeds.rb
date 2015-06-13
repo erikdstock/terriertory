@@ -4,7 +4,7 @@ User.create!(username: "Jeff Goldblum", email: "jeff@goldblum.com", password: "p
 User.create!(username: "Nicolas Cage", email: "nic@cage.com", password: "password", avatar: "http://www.tasteofcinema.com/wp-content/uploads/2014/12/best-nicholas-cage-movies.jpg")
 User.create!(username: "Jeff Bridges", email: "jeff@bridges.com", password: "password")
 User.create!(username: "Frank Sinatra", email: "frank@sinatra.com", password: "password")
-ellen = User.create!(username: "Ellen Degeneres", email: "ellen@degeneres.com", password: "password")
+ellen = User.create!(username: "Ellen Degeneres", email: "ellen@degeneres.com", password: "password", avatar: "http://i3.kym-cdn.com/entries/icons/original/000/016/750/Ellen-Degeneres.jpg")
 grace = User.create!(username: "Grace Hopper", email: "grace@hopper.com", password: "password")
 
 dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Sheltie", avatar: "http://upload.wikimedia.org/wikipedia/commons/3/37/Female_dalmatian_head_shot.jpg")
