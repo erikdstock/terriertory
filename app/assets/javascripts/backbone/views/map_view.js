@@ -14,14 +14,19 @@ var MapView = Backbone.View.extend({
 		map.setCenter(this.model.get('centroid'))
 	},
 
-  renderGeoJson: function(collection, geotype, color){
-    var geotype = geotype || "Polygon", color = color || "#ff292c", geoJson;
 
-    geoJson = this.buildCollectionGeoJson(collection, geotype);
-    console.log(geoJson);
+	// options: {walksCollection || walk, geotype, color/style properties}
+  renderGeoJson: function(options){
+    var geotype = options.geotype || "Polygon",
+    		color = options.color || "#ff292c", 
+    		geoJson, collection, walk;
 
+    // Route to geoJson constructor depending on type of data received 
+    if (collection = options.walksCollection) {
+    	geoJson = this.buildCollectionGeoJson(collection, geotype);
+    }
+    debugger;
     if (geoJson) {
-    	console.log(geoJson);
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
       //  set style
@@ -58,20 +63,19 @@ var MapView = Backbone.View.extend({
 
 	buildCollectionGeoJson: function(walksCollection, geotype){
 		var that = this;
-
     var featureCollection = {
       type: "FeatureCollection",
       features: []
     };
-
     walksCollection.forEach(function(walk){
     	var walkFeatureGeoJson;
     	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype)){
-    		featureCollection.features.push(walkFeatureGeoJson)
+    		featureCollection.features.push(walkFeatureGeoJson);
     	};
 
 	    // console.log(featureCollection);
 	    if (featureCollection.features[0]) {
+	    	console.log(featureCollection);
 	      return featureCollection;
 	    } else {
 	      return false;

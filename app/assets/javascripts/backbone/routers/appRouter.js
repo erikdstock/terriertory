@@ -33,19 +33,27 @@ var AppRouter = Backbone.Router.extend({
             })
           },
           centroid: response.centroid
-          //response.centroid is currently coming in in PostGIS "POINT (y, x)" form. the below LatLng constructor doesn't work. change on server side.
-          // centroid: new google.maps.LatLng(response.centroid[0], response.centroid[1])
 
         });
-        // debugger;
 
         mapView.render();
+        
         // Load Current User's Walk Collection
-        mapView.renderGeoJson(mapView.model.get('walks').currentUser);
+        // renderGeoJson  options: {walksCollection || walk || marksCollection || mark, geotype, color/style properties}
+
+        mapView.renderGeoJson({
+          walksCollection: mapView.model.get('walks').currentUser,
+          geoType: "Polygon",
+          color: null 
+        });
 
         // Iterate over neighbors and load each of their walk collections
         mapView.model.get('walks').neighbors.forEach(function(neighbor){
-          mapView.renderGeoJson(neighbor, "Polygon", "blue");
+          mapView.renderGeoJson({
+            walksCollection: neighbor,
+            geoType: "Polygon",
+            color: "blue" // this.colors[i] //align colors to indices in mapView.colors array
+          });
         });
 
       }
