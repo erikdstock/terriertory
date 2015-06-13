@@ -14,10 +14,16 @@ var MapView = Backbone.View.extend({
 		map.setCenter(this.model.get('centroid'))
 	},
 
-  renderGeoJson: function(collection, geotype, color){
-    var geotype = geotype || "Polygon", color = color || "#ff292c", geoJson;
+	// options: {walksCollection || walk || marksCollection || mark, geotype, color/style properties}
+  renderGeoJson: function(options){
+    var geotype = options.geotype || "Polygon",
+    		color = options.color || "#ff292c", 
+    		geoJson;
 
-    geoJson = this.buildCollectionGeoJson(collection, geotype);
+    // Route to geoJson constructor depending on type of data received 
+    if (collection = options.walksCollection) {
+    	geoJson = this.buildCollectionGeoJson(collection, geotype);
+    };
     // console.log(geoJson.features.length);
     if (geoJson) {
       map.data.addGeoJson(geoJson);
@@ -56,6 +62,7 @@ var MapView = Backbone.View.extend({
 
 	buildCollectionGeoJson: function(walksCollection, geotype){
 		var that = this;
+
 
     var featureCollection = {
       type: "FeatureCollection",
