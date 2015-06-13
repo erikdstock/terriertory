@@ -44,8 +44,10 @@ gem 'rails_12factor', group: :production
 # Foundation front-end framework
 gem 'foundation-rails'
 
-#Alows for S3 capabailities"
-gem "aws-sdk"
+#Alows for S3 capabailities, termporarily going back because new version does not work"
+gem 'aws-sdk', '< 2.0'
+
+# gem "aws-sdk"
 
 # For file attachments
 gem "paperclip", "~> 4.2"
