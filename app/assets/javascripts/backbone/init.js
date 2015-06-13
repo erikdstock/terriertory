@@ -7,7 +7,7 @@ var myApp = {
   loadMapsApiScript: function() {
     var script;
 
-    console.log("map loading ...");
+    console.log("BB map loading ...");
 
     script = document.createElement('script');
     script.type = 'text/javascript';
