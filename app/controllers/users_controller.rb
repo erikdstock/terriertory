@@ -34,33 +34,33 @@ class UsersController < ApplicationController
 
 
   #remove or replace when neighbors view is no longer needed (now) - Local area no longer works this way.
-  def neighbors
-    if request.xhr?
-      if mark = current_user.marks.last
-        @local_area = LocalArea.new(mark.latitude, mark.longitude, current_user.id)
-      else
-        @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
-      end
-      neighbors_json = @local_area.neighbors.map do |neighbor|
-        neighbor.as_json.merge(:distanceTraveled => neighbor.distance_traveled, :distanceScore => neighbor.distance_score, :area => neighbor.area)
-      end
-    end
+  # def neighbors
+  #   if request.xhr?
+  #     if mark = current_user.marks.last
+  #       @local_area = LocalArea.new(mark.latitude, mark.longitude, current_user.id)
+  #     else
+  #       @local_area = LocalArea.new(42.255808, -87.549555, current_user.id)
+  #     end
+  #     neighbors_json = @local_area.neighbors.map do |neighbor|
+  #       neighbor.as_json.merge(:distanceTraveled => neighbor.distance_traveled, :distanceScore => neighbor.distance_score, :area => neighbor.area)
+  #     end
+  #   end
 
-    ##hacky- use location later
+  #   ##hacky- use location later
 
-    render json: neighbors_json
-  end
+  #   render json: neighbors_json
+  # end
 
-  def territory
-    @user = current_user
-    @users = User.where.not(id: current_user.id)
-      if request.xhr?
-        geojson = TerritoriesHelper.geojson(@user, @users, "Polygon")
-        render json: geojson
-      else
-        render :nothing => true, status: 404
-      end
-  end
+  # def territory
+  #   @user = current_user
+  #   @users = User.where.not(id: current_user.id)
+  #     if request.xhr?
+  #       geojson = TerritoriesHelper.geojson(@user, @users, "Polygon")
+  #       render json: geojson
+  #     else
+  #       render :nothing => true, status: 404
+  #     end
+  # end
 
 
 
