@@ -18,8 +18,10 @@ var MapView = Backbone.View.extend({
     var geotype = geotype || "Polygon", color = color || "#ff292c", geoJson;
 
     geoJson = this.buildCollectionGeoJson(collection, geotype);
-    // console.log(geoJson.features.length);
+    console.log(geoJson);
+
     if (geoJson) {
+    	console.log(geoJson);
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
       //  set style
@@ -63,14 +65,18 @@ var MapView = Backbone.View.extend({
     };
 
     walksCollection.forEach(function(walk){
-      featureCollection.features.push(that.buildWalkGeoJson(walk, geotype))
-    });
+    	var walkFeatureGeoJson;
+    	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype)){
+    		featureCollection.features.push(walkFeatureGeoJson)
+    	};
 
-    if (featureCollection.features[0]) {
-      return featureCollection;
-    } else {
-      return false;
-    }
+	    // console.log(featureCollection);
+	    if (featureCollection.features[0]) {
+	      return featureCollection;
+	    } else {
+	      return false;
+	    }
+	  });
 	},
 
 	buildWalkGeoJson: function(walk, geotype){
@@ -88,7 +94,9 @@ var MapView = Backbone.View.extend({
 				walkFeature.geometry.coordinates[0].push(walkFeature.geometry.coordinates[0][0]);
 			}
 
-      return walkFeature
+      return walkFeature;
+		} else {
+			return false;
 		}
 	},
 

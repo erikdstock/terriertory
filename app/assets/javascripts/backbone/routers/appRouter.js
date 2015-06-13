@@ -54,8 +54,8 @@ var AppRouter = Backbone.Router.extend({
 
   startWalk: function(){
     newWalkView = new newWalkView();
-    
-  }
+
+  },
 
 	showWalk: function(){
 		console.log ('check out this walk!');
