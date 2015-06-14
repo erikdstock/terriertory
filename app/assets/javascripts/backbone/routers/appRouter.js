@@ -66,7 +66,7 @@ var AppRouter = Backbone.Router.extend({
   },
 
   startWalk: function(){
-    newWalkView = new newWalkView({model: new Walk();});
+    liveWalkView = new liveWalkView({model: new Walk()});
     // fetch walk and render view, begin polling location with myApp
 
   },

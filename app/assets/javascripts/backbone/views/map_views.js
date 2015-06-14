@@ -1,4 +1,6 @@
-var MapView = Backbone.View.extend({
+var MapView, LiveWalkView;
+
+MapView = Backbone.View.extend({
 	template: JST['backbone/templates/map'],
 	el: "#map",
 	model: Map,
@@ -118,60 +120,17 @@ var MapView = Backbone.View.extend({
     } else {
       return false;
     }
-	},
+	}
 
-	buildWalkGeoJson: function(walk, geotype, color, zIndex, strokeWeight){
-		//only include walks with at least three marks
-		if (walk.length > 2){
-			var walkFeature = {
-				type: "Feature",
-				geometry: {
-					type: geotype,
-					coordinates: [walk]
-				},
-        properties: {
-          geometry: geotype,
-          zIndex: zIndex,
-          fillColor: color,
-          strokeColor: color,
-          strokeWeight: strokeWeight,
-          fillOpacity: 0.5
-        }
-			};
-			//close loop if geometry is polygon
-			if (geotype == 'Polygon'){
-				walkFeature.geometry.coordinates[0].push(walkFeature.geometry.coordinates[0][0]);
-			}
+});
 
-      return walkFeature;
-		} else {
-			return false;
-		}
-	},
+LiveWalkView = MapView.extend({
 
-	mapCanvasSquare: function() {
-		console.log('setting square map layout');
-		var $width = document.documentElement.clientWidth;
-		var $height = $('.top-bar').height();
-		$('#map-canvas').css({
-		"height": $width,
-		// "position": "fixed",
-		// "top": $height,
-		"background-color": "grey"
-		});
-	},
+  model: Walk,
 
+  
 
-
-	setMapHeight: function(){
-		//might want to extract map height function to this view
-	},
-
-	otherMapViewFunctions: function(){
-		//this is made up. things for loading various geojsons and such?
-	},
-
-	loadGeoJSON: function(){},
+  
 });
 
 
