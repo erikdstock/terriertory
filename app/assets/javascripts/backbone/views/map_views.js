@@ -1,4 +1,9 @@
-var MapView = Backbone.View.extend({
+// defining inherited views in line bc load order is messing causing LiveWalkView to be undefined when inheriting from map view
+
+var MapView, LiveWalkView;
+
+MapView = Backbone.View.extend({
+
 	template: JST['backbone/templates/map'],
 	el: "#map",
 	model: Map,
@@ -42,7 +47,6 @@ var MapView = Backbone.View.extend({
                                               });
         }
     });
-
   },
 
 	// options: {walksCollection || walk, geotype, color/style properties}
@@ -57,16 +61,12 @@ var MapView = Backbone.View.extend({
     if (collection = options.walksCollection) {
     	geoJson = this.buildCollectionGeoJson(collection, geotype, color, zIndex, strokeWeight);
     }
+
     if (geoJson) {
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
       //  set style
     }
-  },
-
-
-  setFeatureStyle: function() {
-
   },
 
 	extendBounds: function (geoJson, geotype) {
@@ -160,18 +160,31 @@ var MapView = Backbone.View.extend({
 		"background-color": "grey"
 		});
 	},
+});
 
+LiveWalkView = MapView.extend({
+  template: JST['backbone/templates/live_walk'],
 
+  model: Walk,
 
-	setMapHeight: function(){
-		//might want to extract map height function to this view
-	},
+  el: "#backbone-container",
 
-	otherMapViewFunctions: function(){
-		//this is made up. things for loading various geojsons and such?
-	},
+  render: function(){
+    this.$el.html(this.template());
+    this.mapCanvasSquare();
+    map = new google.maps.Map(document.getElementById("map-canvas"), myApp.mapOptions);
+    //poll and recenter map at optimal interval
+    myApp.pollPosition();
+    this.addMapListeners(map);
+  },
 
-	loadGeoJSON: function(){},
+  initialize: function(){
+    this.mapBounds = new google.maps.LatLngBounds();
+
+    // this.listenTo(this.collection, 'reset', this.addAll);
+  },
+
+  // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
 });
 
 
