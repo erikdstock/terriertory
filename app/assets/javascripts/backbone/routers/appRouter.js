@@ -20,8 +20,10 @@ var AppRouter = Backbone.Router.extend({
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
-    		dogsView.collection.reset(response.dogs);
-    		neighborsView.collection.reset(response.neighbors);
+        dogsView.render();
+        neighborsView.render();
+        dogsView.collection.reset(response.dogs);
+        neighborsView.collection.reset(response.neighbors);
 
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
@@ -34,8 +36,6 @@ var AppRouter = Backbone.Router.extend({
           centroid: response.centroid
 
         });
-        dogsView.render();
-        neighborsView.render();
         mapView.render();
 
         // Load Current User's Walk Collection
