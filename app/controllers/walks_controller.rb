@@ -25,7 +25,7 @@ class WalksController < ApplicationController
         if request.xhr?
           render @walk
         else
-          redirect_to @walk
+          redirect_to walk_path(@walk) + "/#live-walk"
         end
       else
         @errors = @walk.errors.full_messages

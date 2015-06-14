@@ -5,7 +5,7 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "take-a-walk": 'startWalk',
+    "live-walk": 'liveWalk',
 		//example second route
 		"walks/:id": "showWalk"
 	},
@@ -65,8 +65,9 @@ var AppRouter = Backbone.Router.extend({
     });
   },
 
-  startWalk: function(){
-    liveWalkView = new liveWalkView({model: new Walk()});
+  liveWalk: function(){
+    liveWalkView = new LiveWalkView({model: new Walk()});
+    myApp.pollPosition();
     // fetch walk and render view, begin polling location with myApp
 
   },
