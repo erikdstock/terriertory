@@ -18,8 +18,6 @@ var myApp = {
     document.body.appendChild(script);
   },
 
-
-
   //initialize entire app once google maps api has loaded
   initialize: function(){
     console.log("Initializing App");

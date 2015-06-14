@@ -5,7 +5,7 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "take-a-walk": 'startWalk', 
+    "take-a-walk": 'startWalk',
 		//example second route
 		"walks/:id": "showWalk"
 	},
@@ -37,22 +37,27 @@ var AppRouter = Backbone.Router.extend({
         });
 
         mapView.render();
-        
+
         // Load Current User's Walk Collection
         // renderGeoJson  options: {walksCollection || walk || marksCollection || mark, geotype, color/style properties}
 
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
           geoType: "Polygon",
-          color: null 
+          color: "#ff292c",
+          zIndex: 9999,
+          strokeWeight: 4
         });
 
         // Iterate over neighbors and load each of their walk collections
-        mapView.model.get('walks').neighbors.forEach(function(neighbor){
+        mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
+          var color = mapView.colors[index]
           mapView.renderGeoJson({
             walksCollection: neighbor,
             geoType: "Polygon",
-            color: "blue" // this.colors[i] //align colors to indices in mapView.colors array
+            color: color,
+            strokeWeight: 0,
+            zIndex: (500 - index)
           });
         });
 
