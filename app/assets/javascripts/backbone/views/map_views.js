@@ -160,6 +160,12 @@ MapView = Backbone.View.extend({
 		"background-color": "grey"
 		});
 	},
+
+  clearMap: function(){
+    map.data.forEach(function(feature) {
+      map.data.remove(feature);
+    });
+  });
 });
 
 LiveWalkView = MapView.extend({
