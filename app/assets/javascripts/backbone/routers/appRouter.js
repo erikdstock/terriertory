@@ -72,6 +72,7 @@ var AppRouter = Backbone.Router.extend({
     liveWalkView = new LiveWalkView({model: new Walk()});
     // myApp.pollPosition();
     liveWalkView.render();
+    map.setZoom(18);
     // fetch walk and render view, begin polling location with myApp
   },
 
