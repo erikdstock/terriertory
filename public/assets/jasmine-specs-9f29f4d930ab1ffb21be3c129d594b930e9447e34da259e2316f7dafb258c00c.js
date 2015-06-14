@@ -14303,7 +14303,7 @@ return jQuery;
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["backbone/templates/dog_button"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class = "row">\n  <div class = "small-centered columns ">\n    <a class=\'button small expand radius small-12 \'>',  name ,'</a>\n  </div>\n  <div class = "dog-details" style = "display:none">\n    <div class = "row" >\n      <div class = "small-3 small-centered columns">\n        <img src= "https://s3-us-west-2.amazonaws.com/terriertory/dogs/', id,'/avatar/thumb.jpg">\n      </div>\n      <div class="row">\n        <div class="small-6 small-centered columns">\n          ',  breed ,'\n        </div>\n      </div>\n      <div class="row">\n        <div class="small-6 small-centered columns">\n          ',  distanceTraveled ,' miles\n        </div>\n      </div>\n      <div class="row">\n        <div class="small-6 small-centered columns">\n          ',  distanceScore,' pts\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n');}return __p.join('');};
 }).call(this);
-(function() { this.JST || (this.JST = {}); this.JST["backbone/templates/map"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class=\'row\'>\n  <div class="small-12 small-centered columns">\n    <!-- <ul class="button-group radius"> -->\n        <a class=\'button small radius left \' id="load-territory-geo-layer">My Territory</a>\n   <!--      <a class=\'button small\' id="load-neighborhood-geo-layer">Neighborhood</a> -->\n        <a class=\'button small radius right\' id="load-local-area-geo-layer">Neighbors</a>\n    <!-- </ul> -->\n  </div>\n</div>\n\n\n<div id="map-canvas"></div>\n\n');}return __p.join('');};
+(function() { this.JST || (this.JST = {}); this.JST["backbone/templates/map"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('\n<!-- style=\'position:absolute; top: 0; z-index: 999\' -->\n<div class=\'row\'>\n\t<div class=\'small-12 small-centered columns\'>\n\t\t<div class="switch"> \n\t\t\t<h3>Neighbors</h3><label><input type="checkbox" id="Neighbors">Neighbors</label>\n\t\t</div>\n\t\t<a href="#" data-dropdown="drop1" class="button dropdown">Style <br>\n\t\t\t<ul id="drop1" data-dropdown-content class="f-dropdown">\n\t\t\t\t<li> <a href="#">Polygon</a></li>\n\t\t\t\t<li> <a href="#">Line</a></li>\n\t\t\t\t<li> <a href="#">Point</a></li>\n\t\t\t</ul>\n\t\t</a>\n\n\t</div>\n</div> \n\n\n\n<div id="map-canvas"></div>\n\n');}return __p.join('');};
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["backbone/templates/neighbor_button"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class = "row">\n  <div class = "small-centered columns ">\n    <a class=\'button small expand radius small-12 Primary\'>',  username ,'</a>\n  </div>\n\n<div class = "neighbor-details" style = "display:none">\n  <div class = "row" >\n    <div class = "small-3 small-centered columns">\n      ',  distanceTraveled ,' miles - ',  distanceScore ,' pts\n      <img src= "https://s3-us-west-2.amazonaws.com/terriertory/users/', id,'/avatar/thumb.jpg">\n    </div>\n  </div>\n</div>\n');}return __p.join('');};
 }).call(this);
@@ -21700,3 +21700,9 @@ function endWalk(event){
 
 
 $(function(){ $(document).foundation(); });
+describe('Foo', function() {
+  it("does something", function() {
+    expect(1 + 1).toBe(2);
+  });
+});
+
