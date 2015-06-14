@@ -29,7 +29,7 @@ class WalksController < ApplicationController
         end
       else
         @errors = @walk.errors.full_messages
-        redirect_to new_walk_path
+        redirect_to "/dashboard/#backbone"
       end
   end
 

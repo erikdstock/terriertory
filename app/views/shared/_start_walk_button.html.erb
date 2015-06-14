@@ -3,7 +3,7 @@
   <% if session[:walk_id] %>
     <a id="continue-walk-button" class = "button small expand radius success " href="<%= walk_path(session[:walk_id]) %>"> Walking</a>
   <% else %>
-      <form action = "/users/<%=@user.id%>/walks" method = "post">
+      <form action = "/walks" method = "post">
         <% if @user.dogs %>
           <% @user.dogs.each do |dog| %>
             <input type = "hidden" name="dogs[<%=dog.id%>]" value='<%=dog.id%>'></input>

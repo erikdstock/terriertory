@@ -1,18 +1,20 @@
 
 <!-- style='position:absolute; top: 0; z-index: 999' -->
 <div class='row'>
-	<div class='small-12 small-centered columns'>
+	<div class='small-4 small-left columns'>
 		<div class="switch"> 
-			<h3>Neighbors</h3><label><input type="checkbox" id="Neighbors">Neighbors</label>
+			<input type="checkbox" id="Neighbors">
+			<label for="Neighbors"></label>
 		</div>
-		<a href="#" data-dropdown="drop1" class="button dropdown">Style <br>
+	</div>	
+	<div class='small-4 small-centered columns'>
+		<a  data-dropdown="drop1" aria-controls="drop" aria-expanded="false" class="button dropdown">Style <br>
 			<ul id="drop1" data-dropdown-content class="f-dropdown">
 				<li> <a href="#">Polygon</a></li>
 				<li> <a href="#">Line</a></li>
 				<li> <a href="#">Point</a></li>
 			</ul>
 		</a>
-
 	</div>
 </div> 
 

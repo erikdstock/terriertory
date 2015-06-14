@@ -63,13 +63,14 @@ var AppRouter = Backbone.Router.extend({
 
       }
     });
+  $(document).foundation();
+  $(document).foundation('dropdown', 'reflow');
   },
 
   liveWalk: function(){
     liveWalkView = new LiveWalkView({model: new Walk()});
     myApp.pollPosition();
     // fetch walk and render view, begin polling location with myApp
-
   },
 
 	showWalk: function(){
