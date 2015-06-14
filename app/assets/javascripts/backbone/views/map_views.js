@@ -187,10 +187,39 @@ LiveWalkView = MapView.extend({
   initialize: function(){
     this.mapBounds = new google.maps.LatLngBounds();
 
-    // this.listenTo(this.collection, 'reset', this.addAll);
+    this.listenTo($('#map-canvas'), 'click', function(){console.log('click')});
+  },
+  // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
+
+  markWalk: function(event){
+    var url;
+
+    console.log("mark walk **************");
+    url = $(event.target).attr('data-post-route');
+    this.persistGeolocation(url);
+    // loadGeo(function(data) {
+    //   map.data.addGeoJson(data);
+    // });
   },
 
-  // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
+  persistGeolocation: function(url) {
+    var geolocationData, geolocationAjaxPost;
+
+    geolocationData = {mark: {coords: 'POINT(' + myApp.currentCoords.latitude + ' ' + myApp.currentCoords.longitude + ')',
+                              accuracy: myApp.currentCoords.accuracy}
+                      };
+
+    geolocationAjaxPost = $.ajax({
+                              url: url,
+                              type: "post",
+                              data: geolocationData,
+                            });
+
+    geolocationAjaxPost.done(function(response){
+                                $('#stats').html(response)
+                            });
+
+  }
+
+
 });
-
-

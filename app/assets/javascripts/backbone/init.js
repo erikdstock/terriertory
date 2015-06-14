@@ -22,14 +22,11 @@ var myApp = {
     console.log('polled!')
     myApp.currentCoords = position.coords;
     map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
-
   },
 
   positionError: function(error){
     console.log(error.message);
   },
-
-
 
   loadMapsApiScript: function() {
     var script;
