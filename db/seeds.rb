@@ -9,7 +9,7 @@ grace = User.create!(username: "Grace Hopper", email: "grace@hopper.com", passwo
 
 dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Sheltie", avatar: "http://upload.wikimedia.org/wikipedia/commons/3/37/Female_dalmatian_head_shot.jpg")
 dog2 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Fido", birthday: "January 1, 1999", breed: "Terrier", avatar: "http://i284.photobucket.com/albums/ll2/clement20/Dog_0013.jpg")
-dog3 = Dog.create!(owner: User.find_by(username: "Mrs. O'Leary"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Cow")
+dog3 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Cow")
 dog4 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Max", birthday: "October 10, 1900", breed: "Mammal")
 dog5 = Dog.create!(owner: User.find_by(username: "Nic Cage"), name: "Ruffis", birthday: "October 23, 1903", breed: "Terrier")
 dog6 = Dog.create!(owner: User.find_by(username: "Jeff Bridges"), name: "Rover", birthday: "October 23, 1927", breed: "Impotent Dane")
