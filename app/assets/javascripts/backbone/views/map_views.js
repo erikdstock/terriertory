@@ -165,7 +165,7 @@ MapView = Backbone.View.extend({
     map.data.forEach(function(feature) {
       map.data.remove(feature);
     });
-  });
+  },
 });
 
 LiveWalkView = MapView.extend({
