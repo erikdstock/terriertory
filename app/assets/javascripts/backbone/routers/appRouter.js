@@ -64,8 +64,8 @@ var AppRouter = Backbone.Router.extend({
 
       }
     });
-  $(document).foundation();
-  $(document).foundation('dropdown', 'reflow');
+  // $(document).foundation();
+  // $(document).foundation('dropdown', 'reflow');
   },
 
   liveWalk: function(){
