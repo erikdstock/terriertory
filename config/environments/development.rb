@@ -37,10 +37,9 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.paperclip_defaults = {
-    :storage => :file,
-    :path
+    :storage => :file
   }
-}
+
   # Sends paperclip images to computer
   # Paperclip.options[:command_path] = "/usr/local/bin/"
 

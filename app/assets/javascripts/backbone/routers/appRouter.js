@@ -5,7 +5,7 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "take-a-walk": 'startWalk',
+    "live-walk": 'startWalk',
 		//example second route
 		"walks/:id": "showWalk"
 	},
