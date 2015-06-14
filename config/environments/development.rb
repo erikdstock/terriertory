@@ -36,7 +36,6 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-
   # Sends paperclip images to computer
   # Paperclip.options[:command_path] = "/usr/local/bin/"
 
