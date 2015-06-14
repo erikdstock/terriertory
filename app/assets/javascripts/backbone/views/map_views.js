@@ -1,3 +1,5 @@
+// defining inherited views in line bc load order is messing causing LiveWalkView to be undefined when inheriting from map view
+
 var MapView, LiveWalkView;
 
 MapView = Backbone.View.extend({
@@ -59,6 +61,7 @@ MapView = Backbone.View.extend({
     if (collection = options.walksCollection) {
     	geoJson = this.buildCollectionGeoJson(collection, geotype, color, zIndex, strokeWeight);
     }
+
     if (geoJson) {
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
@@ -120,17 +123,59 @@ MapView = Backbone.View.extend({
     } else {
       return false;
     }
-	}
+	},
 
+	buildWalkGeoJson: function(walk, geotype, color, zIndex, strokeWeight){
+		//only include walks with at least three marks
+		if (walk.length > 2){
+			var walkFeature = {
+				type: "Feature",
+				geometry: {
+					type: geotype,
+					coordinates: [walk]
+				},
+        properties: {
+          geometry: geotype,
+          zIndex: zIndex,
+          fillColor: color,
+          strokeColor: color,
+          strokeWeight: strokeWeight,
+          fillOpacity: 0.5
+        }
+			};
+			//close loop if geometry is polygon
+			if (geotype == 'Polygon'){
+				walkFeature.geometry.coordinates[0].push(walkFeature.geometry.coordinates[0][0]);
+			}
+
+      return walkFeature;
+		} else {
+			return false;
+		}
+	},
+
+	mapCanvasSquare: function() {
+		console.log('setting square map layout');
+		var $width = document.documentElement.clientWidth;
+		var $height = $('.top-bar').height();
+		$('#map-canvas').css({
+		"height": $width,
+		// "position": "fixed",
+		// "top": $height,
+		"background-color": "grey"
+		});
+	},
 });
 
 LiveWalkView = MapView.extend({
 
-  model: Walk,
+  initialize: function(){
+    this.mapBounds = new google.maps.LatLngBounds();
 
-  
+    // this.listenTo(this.collection, 'reset', this.addAll);
+  },
 
-  
+  // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
 });
 
 
