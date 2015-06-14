@@ -3,6 +3,7 @@
 var MapView, LiveWalkView;
 
 MapView = Backbone.View.extend({
+
 	template: JST['backbone/templates/map'],
 	el: "#map",
 	model: Map,
@@ -46,7 +47,6 @@ MapView = Backbone.View.extend({
                                               });
         }
     });
-
   },
 
 	// options: {walksCollection || walk, geotype, color/style properties}
@@ -67,11 +67,6 @@ MapView = Backbone.View.extend({
       this.extendBounds(geoJson, geotype);
       //  set style
     }
-  },
-
-
-  setFeatureStyle: function() {
-
   },
 
 	extendBounds: function (geoJson, geotype) {
@@ -168,6 +163,20 @@ MapView = Backbone.View.extend({
 });
 
 LiveWalkView = MapView.extend({
+  template: JST['backbone/templates/live_walk'],
+
+  model: Walk,
+
+  el: "#backbone-container",
+
+  render: function(){
+    this.$el.html(this.template());
+    this.mapCanvasSquare();
+    map = new google.maps.Map(document.getElementById("map-canvas"), myApp.mapOptions);
+    //poll and recenter map at optimal interval
+    myApp.pollPosition();
+    this.addMapListeners(map);
+  },
 
   initialize: function(){
     this.mapBounds = new google.maps.LatLngBounds();

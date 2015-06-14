@@ -11,6 +11,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	dashboard: function(){
+    myApp.stopPollingPosition();
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page? eg mapView below
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
@@ -69,7 +70,8 @@ var AppRouter = Backbone.Router.extend({
 
   liveWalk: function(){
     liveWalkView = new LiveWalkView({model: new Walk()});
-    myApp.pollPosition();
+    // myApp.pollPosition();
+    liveWalkView.render();
     // fetch walk and render view, begin polling location with myApp
   },
 

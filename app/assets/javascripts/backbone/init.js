@@ -6,16 +6,22 @@ var myApp = {
 
   pollPosition: function(){
     console.log('Begin polling position...')
-    var that = this;
     if (Modernizr.geolocation) {
-      navigator.geolocation.watchPosition(this.storePosition, this.positionError, {enableHighAccuracy: true});
+      this.watchID = navigator.geolocation.watchPosition(this.storePosition, this.positionError, {enableHighAccuracy: true});
     } else {
       alert("You must enable location tracking to take a walk!")
     }
   },
 
+  stopPollingPosition: function(){
+    console.log('Stop polling position.');
+    navigator.geolocation.clearWatch(myApp.watchID);
+  },
+
   storePosition: function(position){
+    console.log('polled!')
     myApp.currentCoords = position.coords;
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
   },
 
   positionError: function(error){
