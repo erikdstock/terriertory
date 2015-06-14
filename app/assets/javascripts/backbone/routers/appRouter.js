@@ -16,9 +16,7 @@ var AppRouter = Backbone.Router.extend({
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
     var mapView = myApp.mapView = new MapView({model: new Map()});
-		dogsView.render();
-    neighborsView.render();
-    // mapView.render();
+
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
@@ -36,7 +34,8 @@ var AppRouter = Backbone.Router.extend({
           centroid: response.centroid
 
         });
-
+        dogsView.render();
+        neighborsView.render();
         mapView.render();
 
         // Load Current User's Walk Collection
