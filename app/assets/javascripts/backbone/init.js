@@ -22,6 +22,7 @@ var myApp = {
     console.log('polled!')
     myApp.currentCoords = position.coords;
     map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+    map.setZoom(20);
   },
 
   positionError: function(error){
