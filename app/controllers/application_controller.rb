@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
         distanceTraveled: user.distance_traveled,
         distanceScore: user.distance_score,
         area: user.area,
-        image_url: user.avatar.url)
+        image_url: user.avatar.url(:thumb))
 
       if user.walks.any?
         dashboard_json[:walks] = user.walks.map do |walk|
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
             distanceTraveled: dog.distance_traveled,
             distanceScore: dog.distance_score,
             area: dog.area,
-            image_url: dog.avatar.url
+            image_url: dog.avatar.url(:thumb)
             )
         end
       end
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
           distanceTraveled: neighbor.distance_traveled,
           distanceScore: neighbor.distance_score,
           area: neighbor.area,
-          image_url: neighbor.avatar.url
+          image_url: neighbor.avatar.url(:thumb)
           )
       end
 
@@ -71,11 +71,10 @@ class ApplicationController < ActionController::Base
                 distanceTraveled: dog.distance_traveled,
                 distanceScore: dog.distance_score,
                 area: dog.area,
-                image_url: dog.avatar.url
+                image_url: dog.avatar.url(:thumb)
                 )
             end
           end
-        # end
     end
 
     puts dashboard_json
