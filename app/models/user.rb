@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
   :styles => { :thumb => '60x60#', :medium => '200x200#', :large => '300x300#' }, :default_style => :large,
-  :default_url => "missing_avatar.png",
-  :path => "users/:id/avatar/:style.:extension"
+  :default_url => "missing_avatar.png"
 
   validates :email, uniqueness: true, presence: true
   validates :username, presence: true
