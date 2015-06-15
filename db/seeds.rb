@@ -9,9 +9,9 @@ grace = User.create!(username: "Grace Hopper", email: "grace@hopper.com", passwo
 
 dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Dalmation", avatar: "http://upload.wikimedia.org/wikipedia/commons/3/37/Female_dalmatian_head_shot.jpg")
 dog2 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Fido", birthday: "January 1, 1999", breed: "Terrier", avatar: "http://i284.photobucket.com/albums/ll2/clement20/Dog_0013.jpg")
-dog3 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Labrador", avatar: "http://cupegraf.com/data_images/wallpapers/1/292602-labrador.jpg")
+dog3 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Labrador", avatar: "https://s-media-cache-ak0.pinimg.com/736x/46/56/2c/46562c4d64ffa9b79b30abf3aa952779.jpg")
 dog4 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Max", birthday: "October 10, 1900", breed: "Ducktail Retriever", avatar: "http://www.puppyfind.com/breed/nova_scotia_duck_tolling_retriever/l_659068.jpg")
-dog5 = Dog.create!(owner: User.find_by(username: "Nicolas Cage"), name: "Ruffis", birthday: "October 23, 1903", breed: "Yorkshire Terrier", avatar: "http://www.publicdomainpictures.net/pictures/10000/nahled/87-1222934091qfLy.jpgs")
+dog5 = Dog.create!(owner: User.find_by(username: "Nicolas Cage"), name: "Ruffis", birthday: "October 23, 1903", breed: "Yorkshire Terrier", avatar: "http://cdn-3.dooziedog.com/dog_breeds/yorkshire_terrier/images/full/Yorkshire-Terrier-Puppy-9.jpg")
 dog6 = Dog.create!(owner: User.find_by(username: "Jeff Bridges"), name: "Rover", birthday: "October 23, 1927", breed: "Great Dane", avatar: "http://1.bp.blogspot.com/-8u0oNC1ghYk/TvOcHQ_9wCI/AAAAAAAAA2M/cm9TSLPx2AI/s1600/great-dane-black.jpg")
 dog7 = Dog.create!(owner: User.find_by(username: "Frank Sinatra"), name: "Spike", birthday: "January 1, 1950", breed: "Sheltie", avatar: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSBY5NWIEhimHZi8N0c0ycIXikrsSDuQFFCt12OqBKxgmXmrUyfGA")
 dog8 = Dog.create!(owner: User.find_by(username: "Ellen Degeneres"), name: "Morty", birthday: "June 1, 1660", breed: "Irish Setter", avatar: "http://www.dogwatch.com/dogtails/wp-content/uploads/2012/03/4822696256_9457f33093_z.jpg")
