@@ -4,7 +4,7 @@ class LocalArea
 
   def initialize(marker)
 
-    sql = "SELECT * FROM marks WHERE ST_DWithin(coords, '#{marker.centroid}', 1000);"
+    sql = "SELECT * FROM marks WHERE ST_DWithin(coords, '#{marker.centroid}', 800);"
 
     marks_object = ActiveRecord::Base.connection.execute(sql)
 
