@@ -5,19 +5,18 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "take-a-walk": 'startWalk',
+    "live-walk": 'liveWalk',
 		//example second route
 		"walks/:id": "showWalk"
 	},
 
 	dashboard: function(){
+    myApp.stopPollingPosition();
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page? eg mapView below
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
     var mapView = myApp.mapView = new MapView({model: new Map()});
-		dogsView.render();
-    neighborsView.render();
-    // mapView.render();
+
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
@@ -35,7 +34,8 @@ var AppRouter = Backbone.Router.extend({
           centroid: response.centroid
 
         });
-
+        dogsView.render();
+        neighborsView.render();
         mapView.render();
 
         // Load Current User's Walk Collection
@@ -63,14 +63,20 @@ var AppRouter = Backbone.Router.extend({
 
       }
     });
+  // $(document).foundation();
+  // $(document).foundation('dropdown', 'reflow');
   },
 
-  startWalk: function(){
-    newWalkView = new newWalkView();
-
+  liveWalk: function(){
+    liveWalkView = new LiveWalkView({model: new Walk()});
+    // myApp.pollPosition();
+    liveWalkView.render();
+    map.setZoom(18);
+    // fetch walk and render view, begin polling location with myApp
   },
 
 	showWalk: function(){
+    //we may not need this view.
 		console.log ('check out this walk!');
 	}
 

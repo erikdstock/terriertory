@@ -4,6 +4,33 @@ var appRouter = new AppRouter();
 var myApp = {
 	dashboard: new Dashboard(),
 
+  pollPosition: function(){
+    console.log('Begin polling position...')
+    if (Modernizr.geolocation) {
+      this.watchID = navigator.geolocation.watchPosition(this.storePosition, this.positionError, {enableHighAccuracy: true});
+    } else {
+      alert("You must enable location tracking to take a walk!")
+    }
+  },
+
+  stopPollingPosition: function(){
+    console.log('Stop polling position.');
+    navigator.geolocation.clearWatch(myApp.watchID);
+  },
+
+  storePosition: function(position){
+    console.log('polled!')
+    myApp.currentCoords = position.coords;
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+
+  },
+
+  positionError: function(error){
+    console.log(error.message);
+  },
+
+
+
   loadMapsApiScript: function() {
     var script;
 
