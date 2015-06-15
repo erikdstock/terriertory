@@ -20,8 +20,10 @@ var AppRouter = Backbone.Router.extend({
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
-    		dogsView.collection.reset(response.dogs);
-    		neighborsView.collection.reset(response.neighbors);
+        dogsView.render();
+        neighborsView.render();
+        dogsView.collection.reset(response.dogs);
+        neighborsView.collection.reset(response.neighbors);
 
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
@@ -34,8 +36,6 @@ var AppRouter = Backbone.Router.extend({
           centroid: response.centroid
 
         });
-        dogsView.render();
-        neighborsView.render();
         mapView.render();
 
         // Load Current User's Walk Collection
@@ -43,7 +43,7 @@ var AppRouter = Backbone.Router.extend({
 
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
-          geoType: "Polygon",
+          geotype: "Polygon",
           color: "#ff292c",
           zIndex: 9999,
           strokeWeight: 4
@@ -54,7 +54,7 @@ var AppRouter = Backbone.Router.extend({
           var color = mapView.colors[index]
           mapView.renderGeoJson({
             walksCollection: neighbor,
-            geoType: "Polygon",
+            geotype: "Polygon",
             color: color,
             strokeWeight: 0,
             zIndex: (500 - index)
@@ -68,11 +68,8 @@ var AppRouter = Backbone.Router.extend({
   },
 
   liveWalk: function(){
-    liveWalkView = new LiveWalkView({model: new Walk()});
-    // myApp.pollPosition();
+    var liveWalkView = myApp.liveWalkView = new LiveWalkView({model: new Walk()});
     liveWalkView.render();
-    map.setZoom(18);
-    // fetch walk and render view, begin polling location with myApp
   },
 
 	showWalk: function(){

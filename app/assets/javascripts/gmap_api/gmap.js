@@ -1,33 +1,33 @@
 // var map, infoWindow;
-//
-//   // infoWindow = new google.maps.InfoWindow({
-//   //   content: ""
-//   // });
-//
-// // $(window).load(function() {
-// //   loadMapsApiScript();
-// // });
-//
-// // function loadMapsApiScript() {
-// //   var script;
-//
-// //   console.log("map loading ...");
-//
-// //   script = document.createElement('script');
-// //   script.type = 'text/javascript';
-// //   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-// //                '&key=AIzaSyCR_ZOsj0P5_-j5UoT-L50l3ynij4eoY4c' +
-// //                '&libraries=drawing'+
-// //                '&callback=initializeMap';
-// //   document.body.appendChild(script);
-// // }
-//
-//
+
+  // infoWindow = new google.maps.InfoWindow({
+  //   content: ""
+  // });
+
+// $(window).load(function() {
+//   loadMapsApiScript();
+// });
+
+// function loadMapsApiScript() {
+//   var script;
+
+//   console.log("map loading ...");
+
+//   script = document.createElement('script');
+//   script.type = 'text/javascript';
+//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+//                '&key=AIzaSyCR_ZOsj0P5_-j5UoT-L50l3ynij4eoY4c' +
+//                '&libraries=drawing'+
+//                '&callback=initializeMap';
+//   document.body.appendChild(script);
+// }
+
+
 // function initializeMap() {
 //   var defaultLatLng, mapOptions, colorValues;
-//
-//   // defaultLatLng = new google.maps.LatLng(30.055487, 31.279766);
-//
+
+  // defaultLatLng = new google.maps.LatLng(30.055487, 31.279766);
+
 //   mapOptions = {
 //     // zoom: 15,
 //     // center: defaultLatLng,
@@ -65,25 +65,25 @@
 //   if ($("body").hasClass("walks")) {
 //       html5Geolocation(displayMap);
 //   }
-//
-//   // if ($("body").hasClass("show")) {
-//   //   if ($("#stats").attr("data-walk-mark-count") === "0") {
-//   //     html5Geolocation(displayMap);
-//   //   } else {
-//   //     loadGeo(function(geojson_data) {
-//   //       if ($("body").hasClass("users")) {
-//   //         map.data.addGeoJson(geojson_data);
-//   //         extendBounds(geojson_data, "Polygon");
-//   //       }
-//   //       else {
-//   //         map.data.addGeoJson(geojson_data);
-//   //           // map.data.SetStyle(function(feature))
-//   //         extendBounds(geojson_data, "Point");
-//   //       }
-//   //     });
-//   //   }
-//   // };
-//
+
+  // if ($("body").hasClass("show")) {
+  //   if ($("#stats").attr("data-walk-mark-count") === "0") {
+  //     html5Geolocation(displayMap);
+  //   } else {
+  //     loadGeo(function(geojson_data) {
+  //       if ($("body").hasClass("users")) {
+  //         map.data.addGeoJson(geojson_data);
+  //         extendBounds(geojson_data, "Polygon");
+  //       }
+  //       else {
+  //         map.data.addGeoJson(geojson_data);
+  //           // map.data.SetStyle(function(feature))
+  //         extendBounds(geojson_data, "Point");
+  //       }
+  //     });
+  //   }
+  // };
+
   // map.data.addListener('addfeature', function (event) {
   //   if (event.feature.getProperty('geometry') === "Point") {
   //     map.data.setStyle({
@@ -109,33 +109,33 @@
   //                                           });
   //     }
   // });
-//
-//   $("#load-territory-geo-layer").click(function() {
-//     map.data.forEach(function(feature) {
-//       map.data.remove(feature);
-//     });
-//
-//     if ($("#square-map").attr("data-user-walk-count") === "0") {
-//       html5Geolocation(displayMap);
-//     } else {
-//       loadGeo(function(geojson_data) {
-//
-//         map.data.addGeoJson(geojson_data);
-//         extendBounds(geojson_data, "Polygon");
-//       });
-//     }
-//   })
-//
-//   $("#load-neighborhood-geo-layer").click(function() {
-//     loadTerritoriesGeoLayer(function(geojson_data) {
-//       map.data.forEach(function(feature) {
-//         map.data.remove(feature);
-//       });
-//       map.data.addGeoJson(geojson_data);
-//       extendBounds(geojson_data, "Polygon");
-//     });
-//   })
-//
+
+  // $("#load-territory-geo-layer").click(function() {
+  //   map.data.forEach(function(feature) {
+  //     map.data.remove(feature);
+  //   });
+
+  //   if ($("#square-map").attr("data-user-walk-count") === "0") {
+  //     html5Geolocation(displayMap);
+  //   } else {
+  //     loadGeo(function(geojson_data) {
+
+  //       map.data.addGeoJson(geojson_data);
+  //       extendBounds(geojson_data, "Polygon");
+  //     });
+  //   }
+  // })
+
+  // $("#load-neighborhood-geo-layer").click(function() {
+  //   loadTerritoriesGeoLayer(function(geojson_data) {
+      // map.data.forEach(function(feature) {
+      //   map.data.remove(feature);
+      // });
+  //     map.data.addGeoJson(geojson_data);
+  //     extendBounds(geojson_data, "Polygon");
+  //   });
+  // })
+
 //   $("#load-local-area-geo-layer").click(function() {
 // //CLEAR MAP FEATURES
 //     loadLocalAreaGeoLayer(function(geojson_data) {
@@ -148,15 +148,15 @@
 //   })
 //
 // }
+
+// function setColorStyle (feature) {
 //
-// // function setColorStyle (feature) {
-// //
-// //   return {
-// //     fillColor: feature.getProperty('color'),
-// //     strokeWeight: 0
-// //   };
-// // }
-//
+//   return {
+//     fillColor: feature.getProperty('color'),
+//     strokeWeight: 0
+//   };
+// }
+
 // function loadGeo (callback) {
 //   if ($("#map-canvas").attr("data-controller-name") === "users") {
 //   $.getJSON("/"+$("#map-canvas").attr("data-controller-name")+"/"+$("#map-canvas").attr("data-user-id"), callback);
@@ -174,19 +174,19 @@
 // function loadLocalAreaGeoLayer (callback) {
 //   html5Geolocation(postToServer);
 // }
-//
+
 // function postToServer(position) {
 //   $.post("/local_areas", returnGeolocationCoordinates(position), function(geojson_data, textStatus) {
-//
+
 //     map.data.forEach(function(feature) {
 //       map.data.remove(feature);
 //     });
-//
+
 //     map.data.addGeoJson(geojson_data);
 //     extendBounds(geojson_data, "Polygon");
 //   });
 // }
-//
+
 // function extendBounds (geojson_data, geotype) {
 //   var bounds, coordinates;
 //   bounds = new google.maps.LatLngBounds();
@@ -209,7 +209,7 @@
 //   map.fitBounds(bounds);
 //   map.panToBounds(bounds);
 // }
-//
+
 // function html5Geolocation (successAction, failAction) {
 //   var errorAction = failAction || onError;
 //   // function standardAction(position) {
@@ -242,25 +242,27 @@
 //                                               position.coords.longitude);
 //   map.setCenter(currentGeolocation);
 // }
-//
+
 // function persistGeolocation(position, url) {
 //   var geolocationData, geolocationAjaxPost;
-//
+
 //   geolocationData = {mark: {coords: 'POINT(' + position.coords.latitude + ' ' + position.coords.longitude + ')',
-//
+
 //                             accuracy: position.coords.accuracy}
 //                     };
+
 //   geolocationAjaxPost = $.ajax({
 //                             url: url,
 //                             type: "post",
 //                             data: geolocationData,
 //                           });
+
 //   geolocationAjaxPost.done(function(response){
 //                               $('#stats').html(response)
 //                           });
-//
+
 // }
-//
+
 // function onError() {
 //       handleNoGeolocation(true);
 // }
@@ -284,10 +286,10 @@
 //
 //   map.setCenter(options.position);
 // }
-//
-// //////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 // $(document).ready(function(){
 //
 //   function onSuccessMark(position){
@@ -312,17 +314,17 @@
 //       })
 //     }
 //
-//
-//
-//   // BUTTON : RECENT WALKS
-//   $("#recent-walks-btn").on('click', function(event){
+
+
+  // BUTTON : RECENT WALKS
+  // $("#recent-walks-btn").on('click', function(event){
+  //   event.preventDefault();
+  //   map.data.loadGeoJson("/walks/1");
+  // })
+
+  // MARK BUTTON
+//   $(".mark").on('click', function(event){
 //     event.preventDefault();
-//     map.data.loadGeoJson("/walks/1");
-//   })
-//
-//   // MARK BUTTON
-// //   $(".mark").on('click', function(event){
-// //     event.preventDefault();
-// //     navigator.geolocation.getCurrentPosition(onSuccessMark, onError);
+//     navigator.geolocation.getCurrentPosition(onSuccessMark, onError);
 // //   })
 // });
