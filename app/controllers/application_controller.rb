@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
   	dashboard_json = user.as_json.merge(
         distanceTraveled: user.distance_traveled,
         distanceScore: user.distance_score,
-        area: user.area)
+        area: user.area,
+        image_url: user.avatar.url)
 
       if user.walks.any?
         dashboard_json[:walks] = user.walks.map do |walk|
@@ -32,7 +33,8 @@ class ApplicationController < ActionController::Base
           dog.as_json.merge(
             distanceTraveled: dog.distance_traveled,
             distanceScore: dog.distance_score,
-            area: dog.area
+            area: dog.area,
+            image_url: dog.avatar.url
             )
         end
       end
@@ -45,7 +47,8 @@ class ApplicationController < ActionController::Base
         neighbor.as_json.merge(
           distanceTraveled: neighbor.distance_traveled,
           distanceScore: neighbor.distance_score,
-          area: neighbor.area
+          area: neighbor.area,
+          image_url: neighbor.avatar.url
           )
       end
 
@@ -67,7 +70,8 @@ class ApplicationController < ActionController::Base
               dog.as_json.merge(
                 distanceTraveled: dog.distance_traveled,
                 distanceScore: dog.distance_score,
-                area: dog.area
+                area: dog.area,
+                image_url: dog.avatar.url
                 )
             end
           end
