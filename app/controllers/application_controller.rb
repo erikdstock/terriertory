@@ -11,50 +11,24 @@ class ApplicationController < ActionController::Base
 ##what about current user?!
 
   def dashboard_json_constructor
-  	dashboard_json = current_user.as_json.merge(
-        distanceTraveled: current_user.distance_traveled,
-        distanceScore: current_user.distance_score,
-        area: current_user.area,
-        centroid: current_user.centroid_to_LatLng.as_json)
-    neighborhood = current_user.neighbors
+    user = current_user
+  	dashboard_json = user.as_json.merge(
+        distanceTraveled: user.distance_traveled,
+        distanceScore: user.distance_score,
+        area: user.area)
 
-    dashboard_json[:walks] = current_user.walks.map do |walk|
-      walk.marks.map do |mark|
-        [mark.latitude, mark.longitude]
-      end
-    end
-
-    # insert dogs
-    dashboard_json[:dogs] = current_user.dogs.map do |dog|
-      dog.as_json.merge(
-        distanceTraveled: dog.distance_traveled,
-        distanceScore: dog.distance_score,
-        area: dog.area
-        )
-    end
-
-    # insert neighbors, including their scores, dogs, and walks/marks of both :/
-    dashboard_json[:neighbors] = neighborhood.neighbors.map do |neighbor|
-      neighbor.as_json.merge(
-        distanceTraveled: neighbor.distance_traveled,
-        distanceScore: neighbor.distance_score,
-        area: neighbor.area
-        )
-    end
-
-
-
-
-
-    dashboard_json[:neighbors].each do |neighbor|
-
-      neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
-      neighbor["walks"].map! do |walk|
-        neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
+      if user.walks.any?
+        dashboard_json[:walks] = user.walks.map do |walk|
+          walk.marks.map do |mark|
+            [mark.latitude, mark.longitude]
+          end
+        end
       end
 
-      neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor["id"] }
-      neighbor[:dogs].map! do |dog|
+
+      # insert dogs
+      if user.dogs.any?
+        dashboard_json[:dogs] = user.dogs.map do |dog|
           dog.as_json.merge(
             distanceTraveled: dog.distance_traveled,
             distanceScore: dog.distance_score,
@@ -62,7 +36,45 @@ class ApplicationController < ActionController::Base
             )
         end
       end
-      puts dashboard_json
+
+    if user.marks.any?
+      dashboard_json[:centroid] = user.centroid_to_LatLng.as_json
+      neighborhood = user.neighbors
+      # insert neighbors, including their scores, dogs, and walks/marks of both :/
+      dashboard_json[:neighbors] = neighborhood.neighbors.map do |neighbor|
+        neighbor.as_json.merge(
+          distanceTraveled: neighbor.distance_traveled,
+          distanceScore: neighbor.distance_score,
+          area: neighbor.area
+          )
+      end
+
+
+
+
+
+      dashboard_json[:neighbors].each do |neighbor|
+        # if neighbor.walks.any?
+          neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
+          neighbor["walks"].map! do |walk|
+            neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
+          end
+        # end
+
+        # if neighbor.dogs.any?
+          neighbor[:dogs] = neighborhood.dogs.select { |dog| dog.owner_id = neighbor["id"] }
+          neighbor[:dogs].map! do |dog|
+              dog.as_json.merge(
+                distanceTraveled: dog.distance_traveled,
+                distanceScore: dog.distance_score,
+                area: dog.area
+                )
+            end
+          end
+        # end
+    end
+
+    puts dashboard_json
 
     return dashboard_json
   end

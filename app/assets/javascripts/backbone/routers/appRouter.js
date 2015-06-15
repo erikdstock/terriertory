@@ -5,24 +5,25 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "take-a-walk": 'startWalk',
+    "live-walk": 'liveWalk',
 		//example second route
 		"walks/:id": "showWalk"
 	},
 
 	dashboard: function(){
+    myApp.stopPollingPosition();
 		// We may want these vars accessible in global or a MyApp namespace so we can access them later after loading the page? eg mapView below
 		var dogsView = new DogsView({collection: new Dogs()});
     var neighborsView = new NeighborsView({collection: new Neighbors()});
     var mapView = myApp.mapView = new MapView({model: new Map()});
-		dogsView.render();
-    neighborsView.render();
-    // mapView.render();
+
 
     myApp.dashboard.fetch({
     	success: function (dashboard, response, options) {
-    		dogsView.collection.reset(response.dogs);
-    		neighborsView.collection.reset(response.neighbors);
+        dogsView.render();
+        neighborsView.render();
+        dogsView.collection.reset(response.dogs);
+        neighborsView.collection.reset(response.neighbors);
 
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
@@ -35,7 +36,6 @@ var AppRouter = Backbone.Router.extend({
           centroid: response.centroid
 
         });
-
         mapView.render();
 
         // Load Current User's Walk Collection
@@ -43,7 +43,7 @@ var AppRouter = Backbone.Router.extend({
 
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
-          geoType: "Polygon",
+          geotype: "Polygon",
           color: "#ff292c",
           zIndex: 9999,
           strokeWeight: 4
@@ -54,7 +54,7 @@ var AppRouter = Backbone.Router.extend({
           var color = mapView.colors[index]
           mapView.renderGeoJson({
             walksCollection: neighbor,
-            geoType: "Polygon",
+            geotype: "Polygon",
             color: color,
             strokeWeight: 0,
             zIndex: (500 - index)
@@ -63,14 +63,17 @@ var AppRouter = Backbone.Router.extend({
 
       }
     });
+  // $(document).foundation();
+  // $(document).foundation('dropdown', 'reflow');
   },
 
-  startWalk: function(){
-    newWalkView = new newWalkView();
-
+  liveWalk: function(){
+    var liveWalkView = myApp.liveWalkView = new LiveWalkView({model: new Walk()});
+    liveWalkView.render();
   },
 
 	showWalk: function(){
+    //we may not need this view.
 		console.log ('check out this walk!');
 	}
 
