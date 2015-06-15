@@ -43,7 +43,7 @@ var AppRouter = Backbone.Router.extend({
 
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
-          geoType: "Polygon",
+          geotype: "Polygon",
           color: "#ff292c",
           zIndex: 9999,
           strokeWeight: 4
@@ -54,7 +54,7 @@ var AppRouter = Backbone.Router.extend({
           var color = mapView.colors[index]
           mapView.renderGeoJson({
             walksCollection: neighbor,
-            geoType: "Polygon",
+            geotype: "Polygon",
             color: color,
             strokeWeight: 0,
             zIndex: (500 - index)
@@ -70,8 +70,6 @@ var AppRouter = Backbone.Router.extend({
   liveWalk: function(){
     var liveWalkView = myApp.liveWalkView = new LiveWalkView({model: new Walk()});
     liveWalkView.render();
-    map.setZoom(18);
-    // fetch walk and render view, begin polling location with myApp
   },
 
 	showWalk: function(){

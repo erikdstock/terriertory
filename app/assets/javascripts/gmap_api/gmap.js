@@ -175,17 +175,17 @@
 //   html5Geolocation(postToServer);
 // }
 
-function postToServer(position) {
-  $.post("/local_areas", returnGeolocationCoordinates(position), function(geojson_data, textStatus) {
+// function postToServer(position) {
+//   $.post("/local_areas", returnGeolocationCoordinates(position), function(geojson_data, textStatus) {
 
-    map.data.forEach(function(feature) {
-      map.data.remove(feature);
-    });
+//     map.data.forEach(function(feature) {
+//       map.data.remove(feature);
+//     });
 
-    map.data.addGeoJson(geojson_data);
-    extendBounds(geojson_data, "Polygon");
-  });
-}
+//     map.data.addGeoJson(geojson_data);
+//     extendBounds(geojson_data, "Polygon");
+//   });
+// }
 
 // function extendBounds (geojson_data, geotype) {
 //   var bounds, coordinates;
@@ -243,25 +243,25 @@ function postToServer(position) {
 //   map.setCenter(currentGeolocation);
 // }
 
-function persistGeolocation(position, url) {
-  var geolocationData, geolocationAjaxPost;
+// function persistGeolocation(position, url) {
+//   var geolocationData, geolocationAjaxPost;
 
-  geolocationData = {mark: {coords: 'POINT(' + position.coords.latitude + ' ' + position.coords.longitude + ')',
+//   geolocationData = {mark: {coords: 'POINT(' + position.coords.latitude + ' ' + position.coords.longitude + ')',
 
-                            accuracy: position.coords.accuracy}
-                    };
+//                             accuracy: position.coords.accuracy}
+//                     };
 
-  geolocationAjaxPost = $.ajax({
-                            url: url,
-                            type: "post",
-                            data: geolocationData,
-                          });
+//   geolocationAjaxPost = $.ajax({
+//                             url: url,
+//                             type: "post",
+//                             data: geolocationData,
+//                           });
 
-  geolocationAjaxPost.done(function(response){
-                              $('#stats').html(response)
-                          });
+//   geolocationAjaxPost.done(function(response){
+//                               $('#stats').html(response)
+//                           });
 
-}
+// }
 
 // function onError() {
 //       handleNoGeolocation(true);
