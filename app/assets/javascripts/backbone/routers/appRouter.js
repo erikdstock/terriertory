@@ -44,22 +44,22 @@ var AppRouter = Backbone.Router.extend({
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
           geotype: "Polygon",
-          color: "#ff292c",
+          color: mapView.userColor,
           zIndex: 9999,
           strokeWeight: 4
         });
 
         // Iterate over neighbors and load each of their walk collections
-        mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
-          var color = mapView.colors[index]
-          mapView.renderGeoJson({
-            walksCollection: neighbor,
-            geotype: "Polygon",
-            color: color,
-            strokeWeight: 0,
-            zIndex: (500 - index)
-          });
-        });
+        // mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
+          // var color = mapView.colors[index]
+          // mapView.renderGeoJson({
+          //   walksCollection: neighbor,
+          //   geotype: "Polygon",
+          //   color: color,
+          //   strokeWeight: 0,
+          //   zIndex: (500 - index)
+          // });
+        // });
 
       }
     });

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def dashboard_json_constructor
     user = current_user
-  	dashboard_json = user.as_json.merge(
+  	dashboard_json = user.as_json(:only => [:id, :username]).merge(
         distanceTraveled: user.distance_traveled,
         distanceScore: user.distance_score,
         area: user.area,
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       if user.walks.any?
         dashboard_json[:walks] = user.walks.map do |walk|
           walk.marks.map do |mark|
-            [mark.latitude, mark.longitude]
+            [mark.longitude, mark.latitude]
           end
         end
       end
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       neighborhood = user.neighbors
       # insert neighbors, including their scores, dogs, and walks/marks of both :/
       dashboard_json[:neighbors] = neighborhood.neighbors.map do |neighbor|
-        neighbor.as_json.merge(
+        neighbor.as_json(:only => [:id, :username]).merge(
           distanceTraveled: neighbor.distance_traveled,
           distanceScore: neighbor.distance_score,
           area: neighbor.area,
@@ -59,9 +59,11 @@ class ApplicationController < ActionController::Base
       dashboard_json[:neighbors].each do |neighbor|
         # if neighbor.walks.any?
           neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
+          neighborhood.marks.each{|m| puts "#{m.latitude} #{m.longitude}"}
           neighbor["walks"].map! do |walk|
-            neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
+            neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.longitude, mark.latitude]}
           end
+          neighbor["walks"].each {|walk| puts [walk]}
         # end
 
         # if neighbor.dogs.any?
@@ -77,7 +79,7 @@ class ApplicationController < ActionController::Base
           end
     end
 
-    puts dashboard_json
+    puts dashboard_json[:neighbors]
 
     return dashboard_json
   end
@@ -85,6 +87,12 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @_current_user ||= User.find_by(id: session[:user_id])
+  end
+
+
+  # This needs to be better. doesn't clear backbone's # !!!
+  def require_login
+    redirect_to '/' unless current_user
   end
 
 
