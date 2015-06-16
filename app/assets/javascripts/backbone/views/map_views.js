@@ -31,7 +31,7 @@ MapView = Backbone.View.extend({
           map.data.setStyle({
             icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
+            scale: 6,
             strokeColor: event.feature.getProperty('strokeColor'),
             strokeWeight: 4,
             // fillColor: "black"
@@ -215,7 +215,7 @@ LiveWalkView = MapView.extend({
 
     console.log("mark walk **************");
     url = $(event.target).attr('data-post-route');
-    this.persistGeolocation(url, coords);
+    this.persistGeolocation(url, [coords[1], coords[0]]);
     this.renderGeoJson(coords)
     // loadGeo(function(data) {
     //   map.data.addGeoJson(data);
@@ -259,39 +259,30 @@ LiveWalkView = MapView.extend({
 			  	},
           properties: {
             geometry: "Polyline",
-            strokeColor: "red",
+            strokeColor: "#ff292c",
             strokeWeight: 4,
           }
+			  },
+        { type: "Feature",
+				  geometry: {
+					  type: "Point"
+			  	},
+          properties: {
+            geometry: "Point",
+            strokeColor: "#ff292c",
+          }
 			  }
-        // { type: "Feature",
-				//   geometry: {
-				// 	  type: "MultiPoint",
-				// 	  coordinates: []
-			  // 	},
-        //   properties: {
-        //     geometry: "MultiPoint",
-        //     strokeColor: this.userColor,
-        //   }
-			  // }
       ]
     },
 
   renderGeoJson: function(coords){
     var geoJson = map.data.toGeoJson.features || this.liveWalkGeoJson;
-    debugger;
-    // render a new geoJson on top so that older lines appear darker
-    geoJson.features.forEach(function(feature){
-      feature.geometry.coordinates.push(coords);
-    });
-    debugger;
+    geoJson.features[0].geometry.coordinates.push(coords);
+    geoJson.features[1].geometry.coordinates = coords;
+    this.clearMap();
     map.data.addGeoJson(geoJson);
-    // this.extendBounds(geoJson, geotype);
-    // How to build feature collection
-    // var color = this.UserColor,
-    //     strokeWeight = 4,
-    //     geoJson, collection, walk;
-    console.log('rendering...');
   }
+
 });
 
   // geoJson.features.forEach(function(feature) {
