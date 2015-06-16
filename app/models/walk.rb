@@ -45,9 +45,9 @@ class Walk < ActiveRecord::Base
     first_mark = self.marks.first
     markcoords = ""
     self.marks.each do |mark|
-      markcoords = markcoords + mark.coords.y.to_s + " " + mark.coords.x.to_s + ", "
+      markcoords << "#{mark.longitude} #{mark.latitude}, "
     end
-    markcoords = markcoords + first_mark.coords.y.to_s + " " + first_mark.coords.x.to_s
+    markcoords << "#{first_mark.longitude} #{first_mark.latitude}"
     return markcoords
   end
 

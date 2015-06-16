@@ -24,6 +24,7 @@ var AppRouter = Backbone.Router.extend({
         neighborsView.render();
         dogsView.collection.reset(response.dogs);
         neighborsView.collection.reset(response.neighbors);
+              debugger;
 
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
@@ -44,7 +45,7 @@ var AppRouter = Backbone.Router.extend({
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
           geotype: "Polygon",
-          color: "#ff292c",
+          color: mapView.userColor,
           zIndex: 9999,
           strokeWeight: 4
         });

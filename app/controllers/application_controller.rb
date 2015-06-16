@@ -59,9 +59,11 @@ class ApplicationController < ActionController::Base
       dashboard_json[:neighbors].each do |neighbor|
         # if neighbor.walks.any?
           neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
+          neighborhood.marks.each{|m| puts "#{m.latitude} #{m.longitude}"}
           neighbor["walks"].map! do |walk|
             neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
           end
+          neighbor["walks"].each {|walk| puts [walk]}
         # end
 
         # if neighbor.dogs.any?
@@ -77,7 +79,7 @@ class ApplicationController < ActionController::Base
           end
     end
 
-    puts dashboard_json
+    puts dashboard_json[:neighbors][0]['walks']
 
     return dashboard_json
   end

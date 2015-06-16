@@ -7,6 +7,7 @@ MapView = Backbone.View.extend({
 	template: JST['backbone/templates/map'],
 	el: "#map",
 	model: Map,
+  userColor: "#ff292c",
   colors: ["#FFFF00", "#9900FF", "#CC6600", "#009933", "#FF00FF", "#669999", "#CC3300", "#FF33CC", "#00CC99", "#333399", "#660066", "#993333", "#996633", "#333300", "#33CCFF"],
 
 	initialize: function(){
@@ -24,30 +25,38 @@ MapView = Backbone.View.extend({
   // !!! Need to refine this or write new setstyle functions
   addMapListeners: function(map){
     map.data.addListener('addfeature', function (event) {
-      if (event.feature.getProperty('geometry') === "Point") {
-        map.data.setStyle({
-          icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 10,
-          strokeColor: event.feature.getProperty('strokeColor'),
-          strokeWeight: 4,
-          // fillColor: "black"
-          // scaledSize: new google.maps.Size(32, 32),
-          // url: "http://vignette2.wikia.nocookie.net/gaia/images/4/41/200px-Green-dot.svg"
-          // url: event.feature.getProperty('icon')
-                }
-        })
-      } else {
-        // Polygon walk
-        map.data.overrideStyle(event.feature, { 
-          zIndex: event.feature.getProperty('zIndex'),
-          fillColor: event.feature.getProperty('fillColor'),
-          strokeColor: event.feature.getProperty('strokeColor'),
-          strokeWeight: event.feature.getProperty('strokeWeight'),
-          fillOpacity: event.feature.getProperty('fillOpacity')
-          // icon:
-        });
-        }
+      switch (event.feature.getProperty('geometry')) {
+
+        case "Point":
+          map.data.setStyle({
+            icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 6,
+            strokeColor: event.feature.getProperty('strokeColor'),
+            strokeWeight: 4,
+            // fillColor: "black"
+            // scaledSize: new google.maps.Size(32, 32),
+            // url: "http://vignette2.wikia.nocookie.net/gaia/images/4/41/200px-Green-dot.svg"
+            // url: event.feature.getProperty('icon')
+                  }
+          });
+
+        case "Polygon":
+          map.data.overrideStyle(event.feature, {
+            zIndex: event.feature.getProperty('zIndex'),
+            fillColor: event.feature.getProperty('fillColor'),
+            strokeColor: event.feature.getProperty('strokeColor'),
+            strokeWeight: event.feature.getProperty('strokeWeight'),
+            fillOpacity: event.feature.getProperty('fillOpacity')
+          });
+
+        case "Polyline":
+          map.data.overrideStyle(event.feature, {
+            strokeColor: event.feature.getProperty('strokeColor'),
+            strokeWeight: event.feature.getProperty('strokeWeight'),
+          });
+
+      }
     });
   },
 
@@ -200,25 +209,29 @@ LiveWalkView = MapView.extend({
   },
   // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
 
+  //coords longitude/latitude are switched here- why? i am switching them back. was 
+      // coords = [myApp.currentCoords.longitude, myApp.currentCoords.latitude]; and then accessing their indices backwards
+
   markWalk: function(event){
-    var url;
+    var url, coords = myApp.currentCoords;
 
     console.log("mark walk **************");
     url = $(event.target).attr('data-post-route');
-    this.persistGeolocation(url);
+    this.persistGeolocation(url, coords);
+    this.renderGeoJson(coords)
     // loadGeo(function(data) {
     //   map.data.addGeoJson(data);
     // });
   },
 
-  persistGeolocation: function(url) {
+  persistGeolocation: function(url, coords) {
     var that = this,
-        geolocationData, 
-        geolocationAjaxPost, 
-        coords = [myApp.currentCoords.latitude, myApp.currentCoords.longitude];
+        geolocationData,
+        geolocationAjaxPost,
 
-    geolocationData = {mark: {coords: 'POINT(' + myApp.currentCoords.longitude + ' ' + myApp.currentCoords.latitude + ')',
-                              accuracy: myApp.currentCoords.accuracy}
+        // Raw PostGis SQL takes lon/lat
+    geolocationData = {mark: {coords: 'POINT(' + coords.longitude + ' ' + coords.latitude + ')',
+    accuracy: myApp.currentCoords.accuracy}
                       };
 
     geolocationAjaxPost = $.ajax({
@@ -231,24 +244,57 @@ LiveWalkView = MapView.extend({
       // !!! not very backbone...
       $('#stats').html(response);
 
-      console.log(this);
-      that.renderGeoJson({
-        coords: coords,
-      });
-      
+      // console.log(this);
+      // that.renderGeoJson({
+      //   coords: coords,
+      // });
+
     });
   },
 
-  renderGeoJson: function(options){
-    // How to build feature collection 
-    var geotype = options.geotype,
-        color = options.color,
-        zIndex = options.zIndex,
-        strokeWeight = options.strokeWeight,
-        geoJson, collection, walk;
-    console.log('rendering...');
+  liveWalkGeoJson:
+    { type: "FeatureCollection",
+      features: [
+        { type: "Feature",
+				  geometry: {
+					  type: "LineString",
+					  coordinates: []
+			  	},
+          properties: {
+            geometry: "Polyline",
+            strokeColor: "#ff292c",
+            strokeWeight: 4,
+          }
+			  },
+        { type: "Feature",
+				  geometry: {
+					  type: "Point"
+			  	},
+          properties: {
+            geometry: "Point",
+            strokeColor: "#ff292c",
+          }
+			  }
+      ]
+    },
+
+  renderGeoJson: function(coords){
+    var geoJson = map.data.toGeoJson.features || this.liveWalkGeoJson;
+    geoJson.features[0].geometry.coordinates.push(coords);
+    geoJson.features[1].geometry.coordinates = coords;
+    this.clearMap();
+    map.data.addGeoJson(geoJson);
   }
+
 });
+
+  // geoJson.features.forEach(function(feature) {
+  //   coordinates = feature.geometry.coordinates[0];
+  //   coordinates.forEach( function(coordinate) {
+  //     bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));
+  //     });
+  // });
+
   // addPointToMap: function(coords){
   //   this.renderGeoJson({
 
