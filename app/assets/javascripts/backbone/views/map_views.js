@@ -42,6 +42,7 @@ MapView = Backbone.View.extend({
           });
 
         case "Polygon":
+        // console.log('polygon switch');
           map.data.overrideStyle(event.feature, {
             zIndex: event.feature.getProperty('zIndex'),
             fillColor: event.feature.getProperty('fillColor'),
@@ -81,6 +82,7 @@ MapView = Backbone.View.extend({
   },
 
 	extendBounds: function (geoJson, geotype) {
+    console.log('extending bounds')
   	var coordinates, bounds = this.mapBounds;
 
   	switch (geotype) {
