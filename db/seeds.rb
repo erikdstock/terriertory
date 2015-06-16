@@ -7,7 +7,7 @@ User.create!(username: "Frank Sinatra", email: "frank@sinatra.com", password: "p
 ellen = User.create!(username: "Ellen Degeneres", email: "ellen@degeneres.com", password: "password", avatar: "http://i3.kym-cdn.com/entries/icons/original/000/016/750/Ellen-Degeneres.jpg")
 grace = User.create!(username: "Grace Hopper", email: "grace@hopper.com", password: "password", avatar: "http://i.telegraph.co.uk/multimedia/archive/02759/grace-hopper_2759716k.jpg")
 
-dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Dalmation", avatar: "http://upload.wikimedia.org/wikipedia/commons/3/37/Female_dalmatian_head_shot.jpg")
+dog1 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Spot", birthday: "January 5, 1999", breed: "Dalmation", avatar: "http://www.petpaw.com.au/wp-content/gallery/dalmatian/dalmatian-dog-6.jpg")
 dog2 = Dog.create!(owner: User.find_by(username: "Bob"), name: "Fido", birthday: "January 1, 1999", breed: "Terrier", avatar: "http://i284.photobucket.com/albums/ll2/clement20/Dog_0013.jpg")
 dog3 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Jalapeno", birthday: "October 10, 1871", breed: "Labrador", avatar: "https://s-media-cache-ak0.pinimg.com/736x/46/56/2c/46562c4d64ffa9b79b30abf3aa952779.jpg")
 dog4 = Dog.create!(owner: User.find_by(username: "Jeff Goldblum"), name: "Max", birthday: "October 10, 1900", breed: "Ducktail Retriever", avatar: "http://www.puppyfind.com/breed/nova_scotia_duck_tolling_retriever/l_659068.jpg")
