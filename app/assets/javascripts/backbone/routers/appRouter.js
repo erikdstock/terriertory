@@ -44,7 +44,7 @@ var AppRouter = Backbone.Router.extend({
         mapView.renderGeoJson({
           walksCollection: mapView.model.get('walks').currentUser,
           geotype: "Polygon",
-          color: "#ff292c",
+          color: mapView.userColor,
           zIndex: 9999,
           strokeWeight: 4
         });
