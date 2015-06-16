@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def dashboard_json_constructor
     user = current_user
-  	dashboard_json = user.as_json.merge(
+  	dashboard_json = user.as_json(:only => [:id, :username]).merge(
         distanceTraveled: user.distance_traveled,
         distanceScore: user.distance_score,
         area: user.area,
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       neighborhood = user.neighbors
       # insert neighbors, including their scores, dogs, and walks/marks of both :/
       dashboard_json[:neighbors] = neighborhood.neighbors.map do |neighbor|
-        neighbor.as_json.merge(
+        neighbor.as_json(:only => [:id, :username]).merge(
           distanceTraveled: neighbor.distance_traveled,
           distanceScore: neighbor.distance_score,
           area: neighbor.area,
