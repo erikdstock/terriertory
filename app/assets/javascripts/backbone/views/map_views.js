@@ -91,7 +91,7 @@ MapView = Backbone.View.extend({
         geoJson.features.forEach(function(feature) {
           coordinates = feature.geometry.coordinates[0];
           coordinates.forEach( function(coordinate) {
-            bounds.extend(new google.maps.LatLng(coordinate[0], coordinate[1]));
+            bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));
             });
         });
         break;
@@ -99,7 +99,7 @@ MapView = Backbone.View.extend({
       case "Point":
         markers = geoJson.features;
         markers.forEach( function(point) {
-          bounds.extend(new google.maps.LatLng(point.geometry.coordinates[0], point.geometry.coordinates[1]));
+          bounds.extend(new google.maps.LatLng(point.geometry.coordinates[1], point.geometry.coordinates[0]));
           });
       break;
     }

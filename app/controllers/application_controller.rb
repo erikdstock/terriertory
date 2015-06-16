@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       if user.walks.any?
         dashboard_json[:walks] = user.walks.map do |walk|
           walk.marks.map do |mark|
-            [mark.latitude, mark.longitude]
+            [mark.longitude, mark.latitude]
           end
         end
       end
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
           neighbor["walks"] = neighborhood.walks.select { |walk| walk.user_id == neighbor["id"]}
           neighborhood.marks.each{|m| puts "#{m.latitude} #{m.longitude}"}
           neighbor["walks"].map! do |walk|
-            neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.latitude, mark.longitude]}
+            neighborhood.marks.select { |mark| mark.walk_id == walk["id"] }.map { |mark| [mark.longitude, mark.latitude]}
           end
           neighbor["walks"].each {|walk| puts [walk]}
         # end
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
           end
     end
 
-    puts dashboard_json[:neighbors][0]['walks']
+    puts dashboard_json[:neighbors]
 
     return dashboard_json
   end
