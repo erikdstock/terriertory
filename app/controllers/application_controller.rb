@@ -90,5 +90,11 @@ class ApplicationController < ActionController::Base
   end
 
 
+  # This needs to be better. doesn't clear backbone's # !!!
+  def require_login
+    redirect_to '/' unless current_user
+  end
+
+
 
 end
