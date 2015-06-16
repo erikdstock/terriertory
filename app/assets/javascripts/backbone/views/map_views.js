@@ -14,11 +14,56 @@ MapView = Backbone.View.extend({
     this.mapBounds = new google.maps.LatLngBounds();
 	},
 
+  includeNeighbors: false,
+
+  toggleNeighbors: function(){
+    var that = this;
+    this.includeNeighbors = !this.includeNeighbors;
+    console.log(this.includeNeighbors);
+    console.log(this.geotype);
+    if (this.includeNeighbors){
+      this.clearMap();
+      this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+      this.model.get('walks').neighbors.forEach(function(neighbor, index){
+        that.renderGeoJson({
+          walksCollection: neighbor,
+          geotype: that.geotype,
+          color: that.colors[index],
+          strokeWeight: 4,
+          zIndex: (500 - index)
+        });
+      });
+    } else{
+       this.clearMap();
+       this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+    }
+    //re-render geojson
+  },
+
+  geotype: "Polygon",
+
+  setGeotype: function(geotype){
+    this.geotype = geotype;
+    // render geojson
+  },
+
 	render: function(){
 		this.$el.html(this.template());
 		this.mapCanvasSquare();
 		map = new google.maps.Map(document.getElementById("map-canvas"), myApp.mapOptions);
-		map.setCenter(this.model.get('centroid'))
+		map.setCenter(this.model.get('centroid'));
     this.addMapListeners(map);
 	},
 
@@ -27,19 +72,28 @@ MapView = Backbone.View.extend({
     map.data.addListener('addfeature', function (event) {
       switch (event.feature.getProperty('geometry')) {
 
+        case "MultiPoint":
+        map.data.overrideStyle(event.feature, {
+          // map.data.setStyle({
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              strokeColor: event.feature.getProperty('strokeColor'),
+              strokeWeight: 4
+            }
+          // });
+        });
+
         case "Point":
           map.data.setStyle({
             icon: {
             path: google.maps.SymbolPath.CIRCLE,
             scale: 6,
             strokeColor: event.feature.getProperty('strokeColor'),
-            strokeWeight: 4,
-            // fillColor: "black"
-            // scaledSize: new google.maps.Size(32, 32),
-            // url: "http://vignette2.wikia.nocookie.net/gaia/images/4/41/200px-Green-dot.svg"
-            // url: event.feature.getProperty('icon')
-                  }
+            strokeWeight: 4
+            }
           });
+
 
         case "Polygon":
         // console.log('polygon switch');
@@ -51,7 +105,7 @@ MapView = Backbone.View.extend({
             fillOpacity: event.feature.getProperty('fillOpacity')
           });
 
-        case "Polyline":
+        case "LineString":
           map.data.overrideStyle(event.feature, {
             strokeColor: event.feature.getProperty('strokeColor'),
             strokeWeight: event.feature.getProperty('strokeWeight'),
@@ -73,8 +127,8 @@ MapView = Backbone.View.extend({
     if (collection = options.walksCollection) {
     	geoJson = this.buildCollectionGeoJson(collection, geotype, color, zIndex, strokeWeight);
     }
-
     if (geoJson) {
+      this.clearMap;
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
       //  set style ???
@@ -115,18 +169,18 @@ MapView = Backbone.View.extend({
       type: "FeatureCollection",
       features: []
     };
-    console.log(walksCollection);
+    // console.log(walksCollection);
     walksCollection.forEach(function(walk){
     	var walkFeatureGeoJson;
     	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype, color, zIndex, strokeWeight)){
-    		console.log(walkFeatureGeoJson);
+    		// console.log(walkFeatureGeoJson);
     		featureCollection.features.push(walkFeatureGeoJson);
     	};
 	  });
 
 	    // console.log(featureCollection);
     if (featureCollection.features[0]) {
-    	console.log(featureCollection);
+    	// console.log(featureCollection);
       return featureCollection;
     } else {
       return false;
@@ -136,25 +190,32 @@ MapView = Backbone.View.extend({
 	buildWalkGeoJson: function(walk, geotype, color, zIndex, strokeWeight){
 		//only include walks with at least three marks
 		if (walk.length > 2){
-			var walkFeature = {
-				type: "Feature",
-				geometry: {
-					type: geotype,
-					coordinates: [walk]
-				},
-        properties: {
-          geometry: geotype,
-          zIndex: zIndex,
-          fillColor: color,
-          strokeColor: color,
-          strokeWeight: strokeWeight,
-          fillOpacity: 0.5
-        }
-			};
+      // switch (geotype){
+        // case "Polygon": {
+
+        // }
+          var walkFeature = {
+            type: "Feature",
+            geometry: {
+              type: geotype,
+              coordinates: walk
+          },
+          properties: {
+            geometry: geotype,
+            zIndex: zIndex,
+            fillColor: color,
+            strokeColor: color,
+            strokeWeight: strokeWeight,
+            fillOpacity: 0.5
+          }
+  			}
+      // }
 			//close loop if geometry is polygon
 			if (geotype == 'Polygon'){
+        walkFeature.geometry.coordinates = [walkFeature.geometry.coordinates];
 				walkFeature.geometry.coordinates[0].push(walkFeature.geometry.coordinates[0][0]);
 			}
+      // if (geotype == '')
 
       return walkFeature;
 		} else {
@@ -179,6 +240,41 @@ MapView = Backbone.View.extend({
       map.data.remove(feature);
     });
   },
+
+  renderGeoType: function(event, geotype){
+    var that = this;
+    this.clearMap();
+    this.setGeotype(geotype);
+    console.log(this.includeNeighbors);
+    if (this.includeNeighbors){
+      this.clearMap();
+      this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+      this.model.get('walks').neighbors.forEach(function(neighbor, index){
+        that.renderGeoJson({
+          walksCollection: neighbor,
+          geotype: that.geotype,
+          color: that.colors[index],
+          strokeWeight: 2,
+          zIndex: (500 - index)
+        });
+      });
+    } else{
+       that.clearMap();
+       that.renderGeoJson({
+        walksCollection: that.model.get('walks').currentUser,
+        geotype: that.geotype,
+        color: that.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+    }
+  }
 });
 
 LiveWalkView = MapView.extend({
@@ -211,7 +307,7 @@ LiveWalkView = MapView.extend({
   },
   // after successful post mark, pull current data.toJson and render as a collection with one color, post new mark as a new current position/latest mark color
 
-  //coords longitude/latitude are switched here- why? i am switching them back. was 
+  //coords longitude/latitude are switched here- why? i am switching them back. was
       // coords = [myApp.currentCoords.longitude, myApp.currentCoords.latitude]; and then accessing their indices backwards
       // !!! This might be a maps api issue
 
@@ -261,7 +357,7 @@ LiveWalkView = MapView.extend({
 					  coordinates: []
 			  	},
           properties: {
-            geometry: "Polyline",
+            geometry: "LineString",
             strokeColor: "#ff292c",
             strokeWeight: 4,
           }
@@ -287,45 +383,3 @@ LiveWalkView = MapView.extend({
   }
 
 });
-
-  // geoJson.features.forEach(function(feature) {
-  //   coordinates = feature.geometry.coordinates[0];
-  //   coordinates.forEach( function(coordinate) {
-  //     bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));
-  //     });
-  // });
-
-  // addPointToMap: function(coords){
-  //   this.renderGeoJson({
-
-  //   })
-  // }
-
-  // mapView.renderGeoJson({
-  //           walksCollection: neighbor,
-  //           geoType: "Polygon",
-  //           color: color,
-  //           strokeWeight: 0,
-  //           zIndex: (500 - index)
-  //         });
-
-  // renderGeoJson: function(options){
-  //   var geotype = options.geotype || "Polygon",
-  //       color = options.color,
-  //       zIndex = options.zIndex,
-  //       strokeWeight = options.strokeWeight,
-  //       geoJson, collection, walk;
-
-  //   // Route to geoJson constructor depending on type of data received
-  //   if (collection = options.walksCollection) {
-  //     geoJson = this.buildCollectionGeoJson(collection, geotype, color, zIndex, strokeWeight);
-  //   }
-
-  //   if (geoJson) {
-  //     map.data.addGeoJson(geoJson);
-  //     this.extendBounds(geoJson, geotype);
-  //     //  set style
-  //   }
-  // },
-
-

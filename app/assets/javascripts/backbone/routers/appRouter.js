@@ -24,7 +24,6 @@ var AppRouter = Backbone.Router.extend({
         neighborsView.render();
         dogsView.collection.reset(response.dogs);
         neighborsView.collection.reset(response.neighbors);
-              debugger;
 
         // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
         mapView.model.set({
@@ -51,16 +50,16 @@ var AppRouter = Backbone.Router.extend({
         });
 
         // Iterate over neighbors and load each of their walk collections
-        mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
-          var color = mapView.colors[index]
-          mapView.renderGeoJson({
-            walksCollection: neighbor,
-            geotype: "Polygon",
-            color: color,
-            strokeWeight: 0,
-            zIndex: (500 - index)
-          });
-        });
+        // mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
+          // var color = mapView.colors[index]
+          // mapView.renderGeoJson({
+          //   walksCollection: neighbor,
+          //   geotype: "Polygon",
+          //   color: color,
+          //   strokeWeight: 0,
+          //   zIndex: (500 - index)
+          // });
+        // });
 
       }
     });
