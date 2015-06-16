@@ -16,7 +16,7 @@ class Mark < ActiveRecord::Base
 
   def distance_from_last_mark
     if self.prev
-      Geocoder::Calculations.distance_between([self.prev.longitude, self.prev.latitude],[self.longitude, self.latitude])
+      Geocoder::Calculations.distance_between([self.prev.latitude, self.prev.longitude],[self.latitude, self.longitude])
     else
       0
     end

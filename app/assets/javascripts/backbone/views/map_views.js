@@ -213,6 +213,7 @@ LiveWalkView = MapView.extend({
 
   //coords longitude/latitude are switched here- why? i am switching them back. was 
       // coords = [myApp.currentCoords.longitude, myApp.currentCoords.latitude]; and then accessing their indices backwards
+      // !!! This might be a maps api issue
 
   markWalk: function(event){
     var url, coords = myApp.currentCoords;
@@ -221,9 +222,6 @@ LiveWalkView = MapView.extend({
     url = $(event.target).attr('data-post-route');
     this.persistGeolocation(url, coords);
     this.renderGeoJson(coords)
-    // loadGeo(function(data) {
-    //   map.data.addGeoJson(data);
-    // });
   },
 
   persistGeolocation: function(url, coords) {
@@ -282,8 +280,8 @@ LiveWalkView = MapView.extend({
 
   renderGeoJson: function(coords){
     var geoJson = map.data.toGeoJson.features || this.liveWalkGeoJson;
-    geoJson.features[0].geometry.coordinates.push(coords);
-    geoJson.features[1].geometry.coordinates = coords;
+    geoJson.features[0].geometry.coordinates.push([coords.longitude, coords.latitude]);
+    geoJson.features[1].geometry.coordinates = [coords.longitude, coords.latitude];
     this.clearMap();
     map.data.addGeoJson(geoJson);
   }
