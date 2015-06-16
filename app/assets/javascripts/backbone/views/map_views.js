@@ -17,12 +17,37 @@ MapView = Backbone.View.extend({
   includeNeighbors: false,
 
   toggleNeighbors: function(){
+    var that = this;
     this.includeNeighbors = !this.includeNeighbors;
-    console.log(this.geotype)
+    console.log(this.includeNeighbors);
+    console.log(this.geotype);
     if (this.includeNeighbors){
-
+      this.clearMap();
+      this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+      this.model.get('walks').neighbors.forEach(function(neighbor, index){
+        that.renderGeoJson({
+          walksCollection: neighbor,
+          geotype: that.geotype,
+          color: that.colors[index],
+          strokeWeight: 4,
+          zIndex: (500 - index)
+        });
+      });
     } else{
-
+       this.clearMap();
+       this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
     }
     //re-render geojson
   },
@@ -48,14 +73,16 @@ MapView = Backbone.View.extend({
       switch (event.feature.getProperty('geometry')) {
 
         case "MultiPoint":
-          map.data.setStyle({
+        map.data.overrideStyle(event.feature, {
+          // map.data.setStyle({
             icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 6,
-            strokeColor: event.feature.getProperty('strokeColor'),
-            strokeWeight: 4
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              strokeColor: event.feature.getProperty('strokeColor'),
+              strokeWeight: 4
             }
-          });
+          // });
+        });
 
         case "Point":
           map.data.setStyle({
@@ -142,18 +169,18 @@ MapView = Backbone.View.extend({
       type: "FeatureCollection",
       features: []
     };
-    console.log(walksCollection);
+    // console.log(walksCollection);
     walksCollection.forEach(function(walk){
     	var walkFeatureGeoJson;
     	if (walkFeatureGeoJson = that.buildWalkGeoJson(walk, geotype, color, zIndex, strokeWeight)){
-    		console.log(walkFeatureGeoJson);
+    		// console.log(walkFeatureGeoJson);
     		featureCollection.features.push(walkFeatureGeoJson);
     	};
 	  });
 
 	    // console.log(featureCollection);
     if (featureCollection.features[0]) {
-    	console.log(featureCollection);
+    	// console.log(featureCollection);
       return featureCollection;
     } else {
       return false;
@@ -215,15 +242,38 @@ MapView = Backbone.View.extend({
   },
 
   renderGeoType: function(event, geotype){
+    var that = this;
     this.clearMap();
     this.setGeotype(geotype);
-    this.renderGeoJson({
-      walksCollection: this.model.get('walks').currentUser,
-      geotype: geotype,
-      color: this.userColor,
-      zIndex: 9999,
-      strokeWeight: 4
-    });
+    console.log(this.includeNeighbors);
+    if (this.includeNeighbors){
+      this.clearMap();
+      this.renderGeoJson({
+        walksCollection: this.model.get('walks').currentUser,
+        geotype: this.geotype,
+        color: this.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+      this.model.get('walks').neighbors.forEach(function(neighbor, index){
+        that.renderGeoJson({
+          walksCollection: neighbor,
+          geotype: that.geotype,
+          color: that.colors[index],
+          strokeWeight: 2,
+          zIndex: (500 - index)
+        });
+      });
+    } else{
+       that.clearMap();
+       that.renderGeoJson({
+        walksCollection: that.model.get('walks').currentUser,
+        geotype: that.geotype,
+        color: that.userColor,
+        zIndex: 9999,
+        strokeWeight: 4
+      });
+    }
   }
 });
 

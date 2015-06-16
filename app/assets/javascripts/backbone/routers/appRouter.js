@@ -51,14 +51,14 @@ var AppRouter = Backbone.Router.extend({
 
         // Iterate over neighbors and load each of their walk collections
         // mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
-        //   var color = mapView.colors[index]
-        //   mapView.renderGeoJson({
-        //     walksCollection: neighbor,
-        //     geotype: "Polygon",
-        //     color: color,
-        //     strokeWeight: 0,
-        //     zIndex: (500 - index)
-        //   });
+          // var color = mapView.colors[index]
+          // mapView.renderGeoJson({
+          //   walksCollection: neighbor,
+          //   geotype: "Polygon",
+          //   color: color,
+          //   strokeWeight: 0,
+          //   zIndex: (500 - index)
+          // });
         // });
 
       }
