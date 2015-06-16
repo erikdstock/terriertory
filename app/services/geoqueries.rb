@@ -16,7 +16,7 @@ module Geoqueries
 
   def centroid_to_LatLng
     array = self.centroid.sub("POINT (", '').sub(')', '').split(" ")
-    lat_lng = {"lat" => array[0].to_f, "lng" => array[1].to_f}
+    lat_lng = {"lat" => array[1].to_f, "lng" => array[0].to_f}
   end
 
 

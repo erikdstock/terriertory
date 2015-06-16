@@ -80,7 +80,7 @@ MapView = Backbone.View.extend({
         geoJson.features.forEach(function(feature) {
           coordinates = feature.geometry.coordinates[0];
           coordinates.forEach( function(coordinate) {
-            bounds.extend(new google.maps.LatLng(coordinate[1], coordinate[0]));
+            bounds.extend(new google.maps.LatLng(coordinate[0], coordinate[1]));
             });
         });
         break;
@@ -88,7 +88,7 @@ MapView = Backbone.View.extend({
       case "Point":
         markers = geoJson.features;
         markers.forEach( function(point) {
-          bounds.extend(new google.maps.LatLng(point.geometry.coordinates[1], point.geometry.coordinates[0]));
+          bounds.extend(new google.maps.LatLng(point.geometry.coordinates[0], point.geometry.coordinates[1]));
           });
       break;
     }
@@ -217,7 +217,7 @@ LiveWalkView = MapView.extend({
         geolocationAjaxPost, 
         coords = [myApp.currentCoords.latitude, myApp.currentCoords.longitude];
 
-    geolocationData = {mark: {coords: 'POINT(' + myApp.currentCoords.latitude + ' ' + myApp.currentCoords.longitude + ')',
+    geolocationData = {mark: {coords: 'POINT(' + myApp.currentCoords.longitude + ' ' + myApp.currentCoords.latitude + ')',
                               accuracy: myApp.currentCoords.accuracy}
                       };
 
