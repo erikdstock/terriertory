@@ -1,13 +1,22 @@
 <div class = "row">
   <div class = "small-centered columns ">
-    <a class='button small expand radius small-12 Primary'><%= username %></a>
+    <a class='neighbor button small expand radius small-12 Primary'><%= username %></a>
   </div>
 
 <div class = "neighbor-details" style = "display:none">
   <div class = "row" >
     <div class = "small-3 small-centered columns">
-      <%= distanceTraveled %> miles - <%= distanceScore %> pts
       <img src= <%=image_url%> >
+    </div>
+    <div class="row">
+      <div class="small-3 small-centered columns">
+        <%= distanceTraveled %> Miles
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-3 small-centered columns">
+        <%= Math.floor(area * .000247105) %> Acres
+      </div>
     </div>
   </div>
 </div>
