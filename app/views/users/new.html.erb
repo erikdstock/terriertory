@@ -3,33 +3,34 @@
 <%= form_for @user, html: {id: "registration_form"} do |f| %>
 
   <div class = "row">
-    <div class = "medium-3 columns">
+    <div class = "small-10 medium-3 columns">
       <%= f.label :username %>
       <%= f.text_field :username %>
 
   <div class = "row">
-    <div class = "medium-3 columns">
-      <%= f.label :email %>
-      <%= f.email_field :email %>
+    <div class = "small-10 medium-3 columns">
+      <%= f.label :email, class: "small-10 medium-3 columns"  %>
+      <%= f.email_field :email, {class: "small-10 medium-3 columns"} %>
     </div>
   </div>
 
   <div class = "row">
-    <div class = "medium-3 columns">
+    <div class = "small-10 medium-3 columns">
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, {class: "small-10 medium-3 columns"} %>
     </div>
   </div>
 
   <div class = "row">
-    <div class='medium-3 columns'>
+    <div class='small-10 medium-3 columns'>
       <%= f.label :avatar %>
-      <%= f.file_field :avatar %>
-    </div>
-    <div class='medium-3 columns'>
-      <%= f.submit "register", {class: "button"} %>
+      <%= f.file_field :avatar, {class: "small-10 medium-3 columns"} %>
     </div>
   </div>
-</div>
+  <div class = "row">
+    <div class='small-10 medium-3 columns'>
+      <%= f.submit "register", {class: "button radius"} %>
+    </div>
+  </div>
 
 <% end %>
