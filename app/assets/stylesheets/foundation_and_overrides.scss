@@ -123,6 +123,7 @@ $blue 			 : #004E7F;
 $light-blue	 : #1485CC;
 $dark-green	 : #004C16;
 $light-green : #00B031;
+$lighter-green: #39BD5E;
 $brown			 : #572B00;
 $dark-brown	 : #331A00;
 
@@ -132,7 +133,7 @@ $dark-brown	 : #331A00;
 $primary-color: $blue;
 
 // $secondary-color: #e7e7e7; grey
-// $secondary-color: $yellow;
+$secondary-color: $lighter-green;
 // $alert-color: #f04124; red
 $alert-color: $red;
 // $success-color: #43AC6A; green
