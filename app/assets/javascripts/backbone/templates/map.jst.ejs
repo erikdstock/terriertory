@@ -1,21 +1,25 @@
 
 <!-- style='position:absolute; top: 0; z-index: 999' -->
+<!-- <div class='small-block-grid-12' -->
 <div class='row' style='margin-top:10px'>
-	<div class='small-11 centered columns'>
+	<div class='small-12 centered columns'>
 <!--
 		<ul class="button-group even-1 radius" style='display: inline-block'>
 			<li><a id='neighbors-button' class="button info small radius">Neighbors</a></li>
 		</ul> -->
 
-		<ul class="button-group even-3 radius" style='display: inline-block; padding-left:10px'>
-		  <li><a id='marks-button' class="button secondary small" onClick="myApp.mapView.renderGeoType(event, 'MultiPoint')">Marks</a></li>
-		  <li><a id='walks-button' class="button secondary small radius" onClick="myApp.mapView.renderGeoType(event, 'LineString')">Walks</a></li>
-		  <li><a id='area-button' class="button small radius" onClick="myApp.mapView.renderGeoType(event, 'Polygon')">Area</a></li>
+		<ul class="button-group large even-4 radius" style='display: inline-block; padding-left:10px'>
+		  <li><a id='marks-button' class="button secondary small"  onClick="myApp.mapView.renderGeoType(event, 'MultiPoint')">Marks</a></li>
+		  <li><a id='walks-button' class="button secondary small radius"  onClick="myApp.mapView.renderGeoType(event, 'LineString')">Walks</a></li>
+		  <li><a id='area-button' class="button small secondary radius"  onClick="myApp.mapView.renderGeoType(event, 'Polygon')">Area</a></li>
+		  <li><a id='pack-button' class="button small info radius" onClick="myApp.mapView.toggleNeighbors()">Pack</a>
+		  </li>
 		</ul>
-		<div class="switch">
-		  <input id="exampleCheckboxSwitch" type="checkbox" onClick="myApp.mapView.toggleNeighbors()">
-		  <label for="exampleCheckboxSwitch">t-torry</label>
-		</div>
+
+<!-- 		  	<div class="switch">
+		  		<input id="exampleCheckboxSwitch" style='display:inline-block' type="checkbox" onClick="myApp.mapView.toggleNeighbors()">
+		  		<label for="exampleCheckboxSwitch">t-torry</label>
+				</div> -->
 
 
 
