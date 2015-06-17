@@ -244,6 +244,9 @@ MapView = Backbone.View.extend({
 
   renderGeoType: function(event, geotype){
     var that = this;
+    this.$el.find('.geotype-button').removeClass('success').addClass('secondary')
+    $(event.target).addClass('success')
+    
     this.clearMap();
     this.setGeotype(geotype);
     console.log(this.includeNeighbors);
