@@ -91,40 +91,63 @@ $include-html-global-classes: $include-html-classes;
 // $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
-// We use these to define default font weights
+// We use these to define default font weights #colors
 // $font-weight-normal: normal;
 // $font-weight-bold: bold;
 
-// $white       : #FFFFFF;
-// $ghost       : #FAFAFA;
-// $snow        : #F9F9F9;
-// $vapor       : #F6F6F6;
-// $white-smoke : #F5F5F5;
-// $silver      : #EFEFEF;
-// $smoke       : #EEEEEE;
-// $gainsboro   : #DDDDDD;
-// $iron        : #CCCCCC;
-// $base        : #AAAAAA;
-// $aluminum    : #999999;
-// $jumbo       : #888888;
-// $monsoon     : #777777;
-// $steel       : #666666;
-// $charcoal    : #555555;
-// $tuatara     : #444444;
-// $oil         : #333333;
-// $jet         : #222222;
-// $black       : #000000;
+$white       : #FFFFFF;
+$ghost       : #FAFAFA;
+$snow        : #F9F9F9;
+$vapor       : #F6F6F6;
+$white-smoke : #F5F5F5;
+$silver      : #EFEFEF;
+$smoke       : #EEEEEE;
+$gainsboro   : #DDDDDD;
+$iron        : #CCCCCC;
+$base        : #AAAAAA;
+$aluminum    : #999999;
+$jumbo       : #888888;
+$monsoon     : #777777;
+$steel       : #666666;
+$charcoal    : #555555;
+$tuatara     : #444444;
+$oil         : #333333;
+$jet         : #222222;
+$black       : #000000;
+// ## Terriertory Color scheme
+$green 			 : #00B233;
+$red 				 : #e70000;
+$brick-red	 : #660000;
+$yellow			 : #BFBD26;
+$blue 			 : #004E7F;
+$light-blue	 : #1485CC;
+$dark-green	 : #004C16;
+$light-green : #00B031;
+$lighter-green: #39BD5E;
+$brown			 : #572B00;
+$dark-brown	 : #331A00;
+$linen 			 : #faf0e6;
+
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
+// $primary-color: #008CBA; blue
+$primary-color: $blue;
+
+// $secondary-color: #e7e7e7; grey
+$secondary-color: $lighter-green;
+// $alert-color: #f04124; red
+$alert-color: $red;
+// $success-color: #43AC6A; green
+$success-color: $light-green;
+// $warning-color: #f08a24; orange
+$warning-color: $yellow;
+
 // $info-color: #a0d3e8;
 
 // We use these to control various global styles
 // $body-bg: $white;
+$body-bg: $linen;
+
 // $body-font-color: $jet;
 // $body-font-family: $font-family-sans-serif;
 // $body-font-weight: $font-weight-normal;
@@ -710,6 +733,7 @@ $include-html-global-classes: $include-html-classes;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // We use these to style the icon-bar and items
+// !!!
 // $icon-bar-bg: $oil;
 // $icon-bar-font-color: $white;
 // $icon-bar-font-color-hover: $icon-bar-font-color;
@@ -1394,13 +1418,15 @@ $include-html-global-classes: $include-html-classes;
 // $tooltip-pip-size: 5px;
 // $tooltip-max-width: 300px;
 
-// 34. Top Bar
+// 34. Top Bar // ##
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
 // $topbar-bg-color: $oil;
+$topbar-bg-color: $dark-brown;
+
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1487,6 +1513,7 @@ $include-html-global-classes: $include-html-classes;
 
 @import 'foundation';
 
+
 #map-canvas{
   max-width: 720px;
   max-height: 720px;
@@ -1496,4 +1523,14 @@ $include-html-global-classes: $include-html-classes;
   margin-top: 0.4em;
   height: 2em;
   width: 11em
+}
+
+.dog-details {
+	// border-bottom: 1px solid $oil;
+	margin-bottom: 7px;
+}
+
+.neighbor-details {
+	// border-bottom: 1px solid $oil;
+	margin-bottom: 7px;
 }

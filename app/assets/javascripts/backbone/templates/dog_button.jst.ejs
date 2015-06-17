@@ -1,6 +1,6 @@
 <div class = "row">
   <div class = "small-centered columns ">
-    <a class='button small expand radius small-12 '><%= name %></a>
+    <a class='dog button small expand radius small-12 '><%= name %></a>
   </div>
   <div class = "dog-details" style = "display:none">
     <div class = "row" >
@@ -8,18 +8,18 @@
         <img src= <%=image_url%> >
       </div>
       <div class="row">
-        <div class="small-6 small-centered columns">
+        <div class="small-3 small-centered columns">
           <%= breed %>
         </div>
       </div>
       <div class="row">
-        <div class="small-6 small-centered columns">
-          <%= distanceTraveled %> miles
+        <div class="small-3 small-centered columns">
+          <%= distanceTraveled %> Miles
         </div>
       </div>
       <div class="row">
-        <div class="small-6 small-centered columns">
-          <%= distanceScore%> pts
+        <div class="small-3 small-centered columns">
+          <%= Math.floor(area * .000247105) %> Acres
         </div>
       </div>
     </div>

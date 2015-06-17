@@ -18,6 +18,7 @@ MapView = Backbone.View.extend({
 
   toggleNeighbors: function(){
     var that = this;
+    this.$el.find('#pack-button').toggleClass('info').toggleClass('primary');
     this.includeNeighbors = !this.includeNeighbors;
     console.log(this.includeNeighbors);
     console.log(this.geotype);
@@ -243,6 +244,9 @@ MapView = Backbone.View.extend({
 
   renderGeoType: function(event, geotype){
     var that = this;
+    this.$el.find('.geotype-button').removeClass('success').addClass('secondary')
+    $(event.target).addClass('success')
+    
     this.clearMap();
     this.setGeotype(geotype);
     console.log(this.includeNeighbors);
