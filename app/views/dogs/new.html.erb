@@ -3,37 +3,34 @@
 <%= form_for([:user, @dog])  do |f| %>
 
   <div class = "row">
-    <div class = "large-4 medium-8 columns">
+    <div class = "small-10 large-4 medium-8 columns">
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: "small-10 medium-3 columns" %>
     </div>
-
-    <div class = "large-4 medium-8 columns">
+  </div>
+  <div class = "row">
+    <div class = "small-10 large-4 medium-8 columns">
       <%= f.label :breed %>
-      <%= f.text_field :breed %>
+      <%= f.text_field :breed, class: "small-10 medium-3 columns" %>
     </div>
   </div>
 
-  <div class = "row">
-    <div class = "medium-3 columns">
+<!--   <div class = "row">
+    <div class = "small-10 medium-3 columns">
       <%= f.label :birthday %>
       <%= f.date_field :birthday %>
     </div>
-  </div>
+  </div> -->
 
   <div class = "row">
-    <div class='medium-3 columns'>
-      <%= f.submit "register", {class: "button"} %>
-    </div>
-  </div>
-
-  <div class = "row">
-    <div class='medium-3 columns'>
+    <div class='small-10 medium-3 columns'>
       <%= f.label :avatar %>
       <%= f.file_field :avatar %>
     </div>
-    <div class='medium-3 columns'>
-      <%= f.submit "register", {class: "button"} %>
+  </div>
+  <div class='row'>
+    <div class='small-10 medium-3 columns'>
+      <%= f.submit "register", {class: "button radius success"} %>
     </div>
   </div>
 <% end %>
