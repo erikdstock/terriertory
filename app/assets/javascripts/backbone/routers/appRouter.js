@@ -3,11 +3,8 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	routes: {
-		//currently rails' welcome#index route redirects to /dashboard; this is a url change but doesn't affect bb router functionality
 		"backbone": "dashboard",
-    "live-walk": 'liveWalk',
-		//example second route
-		"walks/:id": "showWalk"
+    "live-walk": 'liveWalk'
 	},
 
 	dashboard: function(){
@@ -25,15 +22,15 @@ var AppRouter = Backbone.Router.extend({
         dogsView.collection.reset(response.dogs);
         neighborsView.collection.reset(response.neighbors);
 
-        // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng
+        // Parse dashboard walks into currentUser and neighbor walks, centroid into LatLng ... and don't set undefined collections, use null
         mapView.model.set({
           walks: {
-            currentUser: response.walks,
-            neighbors: response.neighbors.map(function(neighbor){
+            currentUser: response.walks || null,
+            neighbors: (response.neighbors) ? response.neighbors.map(function(neighbor){
               return neighbor["walks"]
-            })
+            }) : null
           },
-          centroid: response.centroid
+          centroid: response.centroid || myApp.mapOptions.center
 
         });
         mapView.render();
@@ -49,33 +46,15 @@ var AppRouter = Backbone.Router.extend({
           strokeWeight: 4
         });
 
-        // Iterate over neighbors and load each of their walk collections
-        // mapView.model.get('walks').neighbors.forEach(function(neighbor, index){
-          // var color = mapView.colors[index]
-          // mapView.renderGeoJson({
-          //   walksCollection: neighbor,
-          //   geotype: "Polygon",
-          //   color: color,
-          //   strokeWeight: 0,
-          //   zIndex: (500 - index)
-          // });
-        // });
-
       }
     });
-  // $(document).foundation();
-  // $(document).foundation('dropdown', 'reflow');
   },
 
   liveWalk: function(){
     var liveWalkView = myApp.liveWalkView = new LiveWalkView({model: new Walk()});
     liveWalkView.render();
-  },
+  }
 
-	showWalk: function(){
-    //we may not need this view.
-		console.log ('check out this walk!');
-	}
 
 });
 
