@@ -12,8 +12,6 @@ class LocalArea
       Mark.new(mark_data)
     end
 
-
-    # Why compact? #compact removes nils, should not be any here.
     @neighbors = @marks.map do |mark|
       mark.walk.user
     end.uniq.compact

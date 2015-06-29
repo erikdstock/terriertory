@@ -78,9 +78,9 @@ MapView = Backbone.View.extend({
           // map.data.setStyle({
             icon: {
               path: google.maps.SymbolPath.CIRCLE,
-              scale: 6,
+              scale: 4,
               strokeColor: event.feature.getProperty('strokeColor'),
-              strokeWeight: 4
+              strokeWeight: 2
             }
           // });
         });
@@ -89,9 +89,9 @@ MapView = Backbone.View.extend({
           map.data.setStyle({
             icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 6,
+            scale: 4,
             strokeColor: event.feature.getProperty('strokeColor'),
-            strokeWeight: 4
+            strokeWeight: 2
             }
           });
 
@@ -132,7 +132,6 @@ MapView = Backbone.View.extend({
       this.clearMap;
       map.data.addGeoJson(geoJson);
       this.extendBounds(geoJson, geotype);
-      //  set style ???
     }
   },
 
@@ -382,6 +381,7 @@ LiveWalkView = MapView.extend({
     var geoJson = map.data.toGeoJson.features || this.liveWalkGeoJson;
     geoJson.features[0].geometry.coordinates.push([coords.longitude, coords.latitude]);
     geoJson.features[1].geometry.coordinates = [coords.longitude, coords.latitude];
+    // console.log(geoJson);
     this.clearMap();
     map.data.addGeoJson(geoJson);
   }
